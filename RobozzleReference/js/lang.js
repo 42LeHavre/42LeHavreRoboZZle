@@ -1,0 +1,42 @@
+4;
+
+var lang_msg_fr = [
+  "Nom:",
+  "Prénom:",
+  "C'est parti !",
+  "Vous devez fournir un nom, prenom et email pour faire le test.",
+  "Ok",
+  "Go !",
+  "rapide",
+  "lent",
+  "Recommencer depuis le level 1 ?",
+  "Annuler",
+  "Erreur reseau. Contactez l'equipe 42.",
+  "Stop",
+  "Reset",
+  "Fin de programme",
+  "Sortie du plateau",
+  "Bravo ! Niveau suivant ?",
+  "Envie de plus ? Rendez-vous à X pour découvrir ",
+  "Email:",
+];
+
+var lang_msg_en = [
+  "Last Name",
+  "First Name",
+  "Start the test !",
+  "Please provide a last name and a first name for this test.",
+  "Ok",
+  "Go !",
+  "fast",
+  "slow",
+  "Reset from level 1 ?",
+  "Cancel",
+  "Network error. Please ask the local crew.",
+  "Stop",
+  "Reset",
+  "End of program reached.",
+  "Out of board",
+  "You did it ! Next level ?",
+  "Congratulations ! You passed all the levels.",
+];
