@@ -36,7 +36,7 @@ export function Canva() {
     else if (char.toLowerCase() == 'g')
         return 'from-lime-700 to-lime-500';
     else
-        return 'dark:bg-[#3e3e3e]';
+        return 'dark:bg-[#3e3e3e] rounded';
   }
 
   return (
