@@ -92,27 +92,62 @@ function stopGame()
 	stopValue = true;
 }
 
+//l'affichage a besoin d'une classe Game pour pouvoir appeler la fonction constructGame mais aussi pour pouvoir afficher la map par defaut et les instruction autoriser,
+//pour cela il doit appeler la fonction createInstance avec en paremetre le nom du niveau souhaiter
+
+
+
+// list_instruction['F1'] = [	new Instruction("forward", "blue"),
+// 							new Instruction("forward", "blue"),
+// 							new Instruction("left", null),
+// 							new Instruction("left", null),
+// 							new Instruction("forward", "red"),
+// 							new Instruction("F2", null),
+						 
+// ];
+// A FINIR DEMAIN
+function createInstance(level)
+{
+	let game;
+	try {
+		let value = getData();
+
+		let list = {};
+		for (let i = 0; i < value.functions.length; i++)
+		{
+			list['F' + (i + 1)] = []
+		}
+
+		data = new game(level,);
+	} catch (error) {
+		console.log(error);
+		// erreur a gerer
+		return null;
+	}
+	return game;
+}
+
+
 //fonction a appeler pour start la game, lire le commentaire en bas de page.
 async function constructGame(gameInstance) {
+	let value;
 	try {
-		let value = await getData();
+		value = await getData();
 
 		data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map));
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 		// erreur a gerer
 		return ;
 	}
-	console.log("test");
 	console.log(gameInstance.level);
-	// console.log(gameInstance.list_instruction['F1'][1]);
-	// console.log(gameInstance.list_instruction['F1'][1].mouvement);
-	// console.log(gameInstance.list_instruction['F1'].length);
-	// position = new pos(data.map)
 	let Code = await startFunction(gameInstance, 'F1');
 
 	//la fonction doit retourner le code de fin, 0 si ca c'est bien passer, 1 si j'arrive a la fin des instruction et qu'il reste des 42, et 2 si la je sort de la map.
 	console.log("code de fin : " + Code);
+
+	//je renitialise la map
+	data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map));
 	return Code;
 }
 
@@ -282,7 +317,6 @@ voici un exemble :
 
 let level = "level_1";
 let list_instruction = {};
-
 list_instruction['F1'] = [	new Instruction("forward", "blue"),
 							new Instruction("forward", "blue"),
 							new Instruction("left", null),
