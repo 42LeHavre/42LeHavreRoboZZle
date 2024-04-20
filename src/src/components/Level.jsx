@@ -2,8 +2,8 @@ import React from 'react';
 
 export function Level(props) {
   return (
-    <div>
-      Level {props.level}
+    <div className="text-2xl text-white font-semibold">
+      Level - {props.level}
     </div>
   );
 }

@@ -9,7 +9,7 @@ export function App() {
 
   return (
     <>
-      <div className="w-screen flex flex-col justify-center items-center h-screen">
+      <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
         <Canva></Canva>
         <Composition></Composition>
