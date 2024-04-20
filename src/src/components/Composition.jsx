@@ -66,7 +66,7 @@ export function Composition() {
 
   return (
     <div className="flex-1 w-full flex flex-col items-center">
-      <div className="flex flex-col items-start my-4">
+      <div className="flex flex-col items-start">
         {functions.map((fun, keyFun) => (
           <div style={`grid-template-columns: repeat(${fun.length + 1}, 1fr);`} className="grid my-2 rounded gap-1 font-semibold text-xl">
             <div className="bg-blue-500 text-white rounded w-12 aspect-square flex items-center justify-center shadow-lg">F{keyFun + 1}</div>

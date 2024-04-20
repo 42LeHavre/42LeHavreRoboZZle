@@ -30,18 +30,18 @@ export function Canva() {
 
   function getCellColor(char) {
     if (char.toLowerCase() == 'b')
-        return 'from-cyan-700 to-cyan-600';
+        return 'from-blue-500 to-blue-600';
     else if (char.toLowerCase() == 'r')
-        return 'from-red-700 to-red-500';
+        return 'from-red-500 to-red-600';
     else if (char.toLowerCase() == 'g')
-        return 'from-lime-700 to-lime-500';
+        return 'from-lime-500 to-lime-600';
     else
         return 'dark:bg-[#3e3e3e] rounded';
   }
 
   return (
     <div style={`grid-template-columns: repeat(${dimension.width}, 1fr); grid-template-rows: repeat(${dimension.height}, 1fr); aspect-ratio: ${dimension.width}/${dimension.height};`}
-        className={`shadow-lg grid gap-0 w-full rounded overflow-hidden`}>
+        className={`shadow-lg grid gap-0 w-full rounded overflow-hidden my-4`}>
         {level.map((line, rowIndex) => (
             line.split("").map((cell, cellIndex) => (
                 <div
