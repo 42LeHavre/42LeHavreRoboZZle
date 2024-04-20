@@ -1,12 +1,12 @@
 import { useState } from 'preact/hooks'
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const [level, setLevel] = useState(1)
 
   return (
     <>
       <div>
-        <h1>test</h1>
+        <h1>Level {level}</h1>
       </div>
     </>
   )
