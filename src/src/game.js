@@ -45,9 +45,9 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const getData = async () => {
+const getData = async (level) => {
 	try {
-		const response = await fetch('./maps/level_1.json');
+		const response = await fetch('./maps/'+ level + '.json');
 		if (!response.ok) {
 			throw new Error('Error retrieving JSON data');
 		}
@@ -106,24 +106,30 @@ function stopGame()
 						 
 // ];
 // A FINIR DEMAIN
-function createInstance(level)
+async function createInstance(level)
 {
 	let game;
+	let value;
 	try {
-		let value = getData();
-
+		value = await getData(level);
+		
 		let list = {};
-		for (let i = 0; i < value.functions.length; i++)
+		for (let i = 0; i < value.functions.length != 0; i++)
 		{
-			list['F' + (i + 1)] = []
+			for (let j = 0; j < value.functions[i]; j++)
+			{
+				if (!list['F' + (i + 1)])
+					list['F' + (i + 1)] = [];
+				list['F' + (i + 1)].push(new Instruction(null, null));
+			}
 		}
-
-		data = new game(level,);
+		game = new Game(level, list);
 	} catch (error) {
 		console.log(error);
 		// erreur a gerer
 		return null;
 	}
+	data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map))
 	return game;
 }
 
@@ -132,8 +138,8 @@ function createInstance(level)
 async function constructGame(gameInstance) {
 	let value;
 	try {
-		value = await getData();
-
+		value = await getData(gameInstance.level);
+	
 		data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map));
 	} catch (error) {
 		console.log(error);
@@ -141,6 +147,7 @@ async function constructGame(gameInstance) {
 		return ;
 	}
 	console.log(gameInstance.level);
+
 	let Code = await startFunction(gameInstance, 'F1');
 
 	//la fonction doit retourner le code de fin, 0 si ca c'est bien passer, 1 si j'arrive a la fin des instruction et qu'il reste des 42, et 2 si la je sort de la map.
@@ -149,6 +156,7 @@ async function constructGame(gameInstance) {
 	//je renitialise la map
 	data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map));
 	return Code;
+	
 }
 
 function moov()
@@ -292,8 +300,35 @@ async function startFunction(gameInstance, listToDo)
 
 /*
 
-pour démarrer une gamme appelée la fonction constructGame(), elle prend en paramètre une classe game qui ce construit avec 2 argument, 
-Le premier une chaine de caractère qui représente le nom du lvl (mais aussi le nom du fichier json en question);
+pour pouvoir démarrer une gamme vous avez besoin d'une instance de la classe game; 
+pour cela vous avez 2 possibilités, le premier : crée votre class vous-même, ce qui est un peu chiant est sujet à erreur.
+c'est pour cela que ma grande personne à l'extrême générosité a pris la sage décision de créer une fonction qui le fait pour vous et vous retourne une instance de cette classe.
+pour cela rien de plus simple, appeler la fonction createInstance("nameOfLvl") qui prend en paramètre le nom du level en question,
+tant que ce nom-là est bien un fichier .json existant dans le dossier public/maps/ et qu'il est bien formaté (même pas besoin de mettre le path ou le .json à la fin car de toute évidence je suis trop généreux et vous facilite le travaille).
+
+cette fonction ne se contente pas seulement de vous retourner une class Game, elle instancie aussi une class Data déclarée en variable global nommer data qui vous permet d'avoir accès à la map, la position de votre joueur et le nombre de collectible restant.
+elle est declarer comme tel : 
+
+class Data{
+	constructor(_map, _x, _y, _dir, _nbCollectible) {
+		this.map = _map;
+		this.x = _x;
+		this.y = _y;
+		this.dir = _dir;
+		this.nbCollectible = _nbCollectible;
+	}
+}
+
+Tout changement effectué à la map(probablement par la fonction au prochain paragraphe), a la position du payeur ou encore au nombre de collectible sera effectué dans cette variable globale.
+
+
+bienvenue dans la fonction constructGame(), cette fonction permet de start la gamme mais aussi de la jouer entièrement, tout ce dont tu as besoin se situe dans la Class data.
+et si jamais tu souhaites changer la vitesse entre chaque tour il existe une variable globale nommée deltaTime qui est en ms, tu peux la modifier quand tu veux.
+
+pour démarrer une game appelée la fonction constructGame(), elle prend en paramètre une classe Game (qui peut être construite avec la fonction createInstance("nameOfLvl"), voir plus haut)
+SI JAMAIS TU VEUX LA CONSTRUIRE A LA MAIN VOICI COMMENT ELLE CE COMPORTE : 
+elle ce construit avec 2 argument, 
+Le premier est une chaine de caractère qui représente le nom du lvl (mais aussi le nom du fichier json en question);
 Le deuxième est un object nomer list_instruction(f1,f2,fx...) qui Contient un tableau avec en premier colonne une chaine de caractère et en deuxième une class d'instruction prenant le mouvement effectué et la couleur de la case
 formater comme ceci :
 
@@ -312,8 +347,8 @@ type de couleur :
 "green" (pour la couleur verte)
 null (si la case n'as pas de couleur)
 
-voici un exemble : 
-*/
+voici un exemble de comment l'on peut start une game : 
+
 
 let level = "level_1";
 let list_instruction = {};
@@ -343,3 +378,9 @@ list_instruction['F3'] = [	new Instruction("right", "blue"),
 let gameInstance = new Game(level, list_instruction);
 
 constructGame(gameInstance);
+
+
+et voic une facon UN PEUT plus simple et sans erreur pour le faire. 
+*/
+
+constructGame(await createInstance("level_1"));
