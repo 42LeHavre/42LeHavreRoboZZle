@@ -56,13 +56,20 @@ export function App() {
 
   console.log(functions);
 
+  const [pos, setPos] = useState({
+    x: 10,
+    y: 7,
+    angle: 'right'
+  })
+
   return (
     <>
       <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
-        <Canva></Canva>
+        <Canva position={pos}></Canva>
         <Composition functions={functions} setFunctions={setFunctions} selected={selected} setSelected={setSelected}></Composition>
         <Toolbar functions={functions} selected={selected} setSelected={setSelected}></Toolbar>
+        <div className="rotate-[45deg] rotate-[135deg] rotate-[225deg] rotate-[315deg]"></div>
       </div>
     </>
   )
