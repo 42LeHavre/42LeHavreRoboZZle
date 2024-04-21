@@ -46,7 +46,7 @@ function sleep(ms)
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const getData = async (level) => 
+const getData = async (level) =>
 {
 	try {
 		const response = await fetch('./maps/'+ level + '.json');
@@ -90,7 +90,7 @@ function verifColor(color)
 }
 
 //fonction a appeler pour stoper la game.
-function stopGame()
+export function stopGame()
 {
 	stopValue = true;
 }
@@ -109,7 +109,7 @@ function stopGame()
 						 
 // ];
 // A FINIR DEMAIN
-async function createInstance(level)
+export async function createInstance(level)
 {
 	let game;
 	let value;
@@ -129,7 +129,6 @@ async function createInstance(level)
 		game = new Game(level, list);
 	} catch (error) {
 		console.log(error);
-		// erreur a gerer
 		return null;
 	}
 	data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map))
@@ -138,7 +137,7 @@ async function createInstance(level)
 
 
 //fonction a appeler pour start la game, lire le commentaire en bas de page.
-async function constructGame(gameInstance) {
+export async function constructGame(gameInstance) {
 	stopValue = false;
 	let value;
 	try {
@@ -147,15 +146,11 @@ async function constructGame(gameInstance) {
 		data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map));
 	} catch (error) {
 		console.log(error);
-		// erreur a gerer
 		return ;
 	}
-	console.log(gameInstance.level);
 
 	let code = await startFunction(gameInstance, 'F1');
 
-	//la fonction doit retourner le code de fin, 0 si ca c'est bien passer, 1 si j'arrive a la fin des instruction et qu'il reste des 42, et 2 si la je sort de la map.
-	console.log("code de fin : " + code);
 
 	//je renitialise la map
 	data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map));
@@ -274,7 +269,6 @@ async function startFunction(gameInstance, listToDo)
 	for (let i = 0; i < gameInstance.instructions[listToDo].length && stopValue != true; i++)
 	{
 		await sleep(deltaTime);
-		console.log(gameInstance.instructions[listToDo][i]);
 		if (verifColor(gameInstance.instructions[listToDo][i].color) === true)
 		{
 			if (gameInstance.instructions[listToDo][i].mouvement == "forward")
@@ -288,7 +282,6 @@ async function startFunction(gameInstance, listToDo)
 					return tmp;
 			}
 		}
-		printMapTest();
 		if (collisionDetect() == 1)
 			return 2;
 		collectCollectible();

@@ -5,8 +5,14 @@ import { Canva } from './components/Canva'
 import { Composition } from './components/Composition'
 import { Toolbar } from './components/Toolbar'
 
-export function App() {
+import { stopGame, createInstance, constructGame, data } from './game'
 
+export function App() {
+  const [selected, setSelected] = useState(1); 
+
+
+  
+  // Examples
   const [functions, setFunctions] = useState([
     [
       {
@@ -51,9 +57,7 @@ export function App() {
       }
     ]
   ]);
-  
   const [level, setLevel] = useState(1);
-  const [selected, setSelected] = useState(1);
   const [pos, setPos] = useState({
     x: 10,
     y: 7,
@@ -61,6 +65,7 @@ export function App() {
   })
 
   const [play, setPlay] = useState(false);
+  const instance = createInstance(`level_${level}`);
 
   return (
     <>
