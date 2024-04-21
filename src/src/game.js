@@ -28,8 +28,8 @@ class Data{
 
 class Instruction
 {
-	constructor(_mouvement, _color) {
-		this.mouvement = _mouvement;
+	constructor(_movement, _color) {
+		this.movement = _movement;
 		this.color = _color;
 	}
 }

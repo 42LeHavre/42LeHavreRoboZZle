@@ -10,12 +10,11 @@ import { sleep, getData, countCollectible, verifColor, collectCollectible, chang
 
 class Instruction
 {
-	constructor(_mouvement, _color) {
-		this.mouvement = _mouvement;
+	constructor(_movement, _color) {
+		this.movement = _movement;
 		this.color = _color;
 	}
 }
-
 
 class Data {
 	constructor(_map, _x, _y, _dir, _nbCollectible) {
@@ -34,12 +33,9 @@ class Game {
 	}
 }
 
-//appeler la fonction createInstance("nameOfLvl") qui prend en paramètre le nom du level en question
-//tant que ce nom-là est bien un fichier .json existant dans le dossier public/maps/ et qu'il est bien formaté (pas besoin de mettre le path ou le .json à la fin du nom)
-
 export function App() {
   const [selected, setSelected] = useState(1);
-  const [data, setData] = useState(new Data([],0, 0, "left", 0));
+  const [data, setData] = useState(new Data([], 0, 0, "left", 0));
   const [stop, setStop] = useState(false);
 
   async function createInstance(level) {
@@ -48,12 +44,12 @@ export function App() {
     try {
       value = await getData(level);
       
-      let list = {};
+      let list = [];
       for (let i = 0; i < value.functions.length != 0; i++) {
         for (let j = 0; j < value.functions[i]; j++) {
-          if (!list['F' + (i + 1)])
-            list['F' + (i + 1)] = [];
-          list['F' + (i + 1)].push(new Instruction(null, null));
+          if (!list[i])
+            list[i] = [];
+          list[i].push(new Instruction(null, null));
         }
       }
       game = new Game(level, list);
@@ -81,7 +77,7 @@ export function App() {
       return ;
     }
   
-    let code = await startFunction(gameInstance, 'F1');
+    let code = await startFunction(gameInstance, 0);
     return code;
   }
 
@@ -96,12 +92,12 @@ export function App() {
     for (let i = 0; i < gameInstance.instructions[listToDo].length && stop == true; i++) {
       await sleep(deltaTime);
       if (verifColor(gameInstance.instructions[listToDo][i].color, data.map) === true) {
-        if (gameInstance.instructions[listToDo][i].mouvement == "forward")
+        if (gameInstance.instructions[listToDo][i].movement == "forward")
           setData(move(data));
-        else if (gameInstance.instructions[listToDo][i].mouvement == "left" || gameInstance.instructions[listToDo][i].mouvement == "right")
-          setData(changeDir(gameInstance.instructions[listToDo][i].mouvement, data));
-        else if (gameInstance.instructions[listToDo][i].mouvement != null) {
-          let tmp = await startFunction(gameInstance, gameInstance.instructions[listToDo][i].mouvement);
+        else if (gameInstance.instructions[listToDo][i].movement == "left" || gameInstance.instructions[listToDo][i].movement == "right")
+          setData(changeDir(gameInstance.instructions[listToDo][i].movement, data));
+        else if (gameInstance.instructions[listToDo][i].movement != null) {
+          let tmp = await startFunction(gameInstance, gameInstance.instructions[listToDo][i].movement);
           if (tmp != 1)
             return tmp;
         }
@@ -118,54 +114,6 @@ export function App() {
       return 0;
     return 1;
   }
-  
-
-  // Examples
-  const [functions, setFunctions] = useState([
-    [
-      {
-        instruction: "none",
-        color: "none",
-      },
-      {
-        instruction: "none",
-        color: "none",
-      },
-      {
-        instruction: "none",
-        color: "none",
-      }
-    ],
-    [
-      {
-        instruction: "none",
-        color: "none",
-      },
-      {
-        instruction: "none",
-        color: "none",
-      },
-      {
-        instruction: "none",
-        color: "none",
-      }
-    ],
-    [
-      {
-        instruction: "none",
-        color: "none",
-      },
-      {
-        instruction: "none",
-        color: "none",
-      },
-      {
-        instruction: "none",
-        color: "none",
-      }
-    ]
-  ]);
-
 
   const [level, setLevel] = useState(1);
   const [pos, setPos] = useState({
@@ -175,22 +123,24 @@ export function App() {
   })
 
   const [play, setPlay] = useState(false);
-  let instance;
+  const [instance, setInstance] = useState(new Game("lvl", []));
 
   useEffect(async () => {
-    instance = await createInstance(`level_${level}`);
-    console.log(await constructGame(instance));
+    setInstance(await createInstance(`level_${level}`));
    }, []);
 
+  useEffect(async () => {
+    console.log(instance)
+  }, [play]);
 
   return (
     <>
       <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
-        <Controls play={play}></Controls>
-        <Canva position={pos}></Canva>
-        <Composition functions={functions} setFunctions={setFunctions} selected={selected} setSelected={setSelected}></Composition>
-        <Toolbar functions={functions} selected={selected} setSelected={setSelected}></Toolbar>
+        <Canva data={data}></Canva>
+        <Composition instance={instance} setInstance={setInstance} selected={selected} setSelected={setSelected}></Composition>
+        <Controls play={play} setPlay={setPlay}></Controls>
+        <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
         <div className="rotate-[45deg] rotate-[135deg] rotate-[225deg] rotate-[315deg]"></div>
       </div>
     </>
