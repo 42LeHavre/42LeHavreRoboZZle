@@ -23,10 +23,10 @@ export function Tile(props) {
         } else if (props.selected == "gray") {
             setClasses("");
             newInst.instructions[x][y].color = null;
-        } else if (props.selected == "up") {
+        } else if (props.selected == "forward") {
             setIcon("fa-arrow-up");
             setFunc("");
-            newInst.instructions[x][y].movement = "up";
+            newInst.instructions[x][y].movement = "forward";
         } else if (props.selected == "left") {
             setIcon("fa-arrow-rotate-left");
             setFunc("");

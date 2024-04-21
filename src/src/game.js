@@ -1,4 +1,4 @@
-let deltaTime = 1000;
+export let deltaTime = 1000;
 let stopValue = false;
 let data;
 
@@ -44,7 +44,7 @@ class Game{
 
 export function move(data)
 {
-	newData = data;
+	let newData = data;
 	if (newData.dir == "up")
 		newData.y --;
 	else if (newData.dir == "down")
@@ -57,24 +57,8 @@ export function move(data)
 }
 
 export function changeDir(dir, data) {
-	newData = data;
+	let newData = data;
 	if (dir == "left") {
-		switch (newData.dir) {
-			case "up" :
-				newData.dir = "right";
-				break;
-			case "down" :
-					newData.dir = "left";
-					break;
-			case "left" :
-				newData.dir = "up";
-				break;
-			case "right" :
-				newData.dir = "down";
-				break;
-		}
-	}
-	else {
 		switch (newData.dir) {
 			case "up" :
 				newData.dir = "left";
@@ -87,6 +71,22 @@ export function changeDir(dir, data) {
 				break;
 			case "right" :
 				newData.dir = "up";
+				break;
+		}
+	}
+	else {
+		switch (newData.dir) {
+			case "up" :
+				newData.dir = "right";
+				break;
+			case "down" :
+					newData.dir = "left";
+					break;
+			case "left" :
+				newData.dir = "up";
+				break;
+			case "right" :
+				newData.dir = "down";
 				break;
 		}
 	}
@@ -117,7 +117,7 @@ export function collisionDetect(data)
 	return 0;
 }
 
-export function verifColor(color, map)
+export function verifColor(color, map, data)
 {
 	if (color == null)
 		return true;

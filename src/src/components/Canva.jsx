@@ -61,7 +61,7 @@ export function Canva(props) {
 
   return (
     <div style={`grid-template-columns: repeat(${dimension.width}, 1fr); grid-template-rows: repeat(${dimension.height}, 1fr); aspect-ratio: ${dimension.width}/${dimension.height};`}
-        className={`overflow-y-auto shadow-lg grid gap-0 w-full rounded overflow-hidden my-4 max-w-[500px]`}>
+        className={`overflow-y-auto shadow-lg grid gap-0 w-full rounded my-4 max-w-[500px]`}>
         {props.data.map.map((line, y) => (
             line.split("").map((cell, x) => (
                 <div

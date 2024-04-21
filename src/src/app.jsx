@@ -6,7 +6,7 @@ import { Composition } from './components/Composition'
 import { Toolbar } from './components/Toolbar'
 import { useEffect } from 'preact/hooks'
 
-import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir} from './game'
+import { deltaTime, sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
 class Instruction
 {
@@ -34,7 +34,7 @@ class Game {
 }
 
 export function App() {
-  const [selected, setSelected] = useState(1);
+  const [selected, setSelected] = useState("");
   const [data, setData] = useState(new Data([], 0, 0, "left", 0));
   const [stop, setStop] = useState(false);
 
@@ -73,6 +73,7 @@ export function App() {
 
       setData(new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map)));
     } catch (error) {
+
       console.log(error);
       return ;
     }
@@ -83,15 +84,14 @@ export function App() {
 
   function stopGame()
   {
-    let stopValue = stop;
-    stopValue = true;
-    setStop(stopValue);
+    setStop(true);
   }
 
   async function startFunction(gameInstance, listToDo) {
-    for (let i = 0; i < gameInstance.instructions[listToDo].length && stop == true; i++) {
+    for (let i = 0; i < gameInstance.instructions[listToDo].length && !stop; i++) {
+      console.log(data);
       await sleep(deltaTime);
-      if (verifColor(gameInstance.instructions[listToDo][i].color, data.map) === true) {
+      if (verifColor(gameInstance.instructions[listToDo][i].color, data.map, data) === true) {
         if (gameInstance.instructions[listToDo][i].movement == "forward")
           setData(move(data));
         else if (gameInstance.instructions[listToDo][i].movement == "left" || gameInstance.instructions[listToDo][i].movement == "right")
@@ -109,6 +109,8 @@ export function App() {
 
       if (data.nbCollectible == 0)
         return 0;
+      console.log(gameInstance)
+
     }
     if (data.nbCollectible == 0)
       return 0;
@@ -116,22 +118,26 @@ export function App() {
   }
 
   const [level, setLevel] = useState(1);
-  const [pos, setPos] = useState({
-    x: 10,
-    y: 7,
-    angle: 'right'
-  })
-
   const [play, setPlay] = useState(false);
   const [instance, setInstance] = useState(new Game("lvl", []));
 
   useEffect(async () => {
     setInstance(await createInstance(`level_${level}`));
-   }, []);
+  }, []);
 
-  useEffect(async () => {
-    console.log(instance)
-  }, [play]);
+  // Have to rebuild the logic inside the interval
+  // useEffect(() => {
+  //   if (play) {
+  //     let i = 0;
+
+  //     if (i < )
+  //     const interval = setInterval(() => {
+        
+  //     }, 1000);
+  //   }
+
+  //   return () => clearInterval(interval);
+  // }, [play]);
 
   return (
     <>
@@ -139,7 +145,7 @@ export function App() {
         <Level level={level} ></Level>
         <Canva data={data}></Canva>
         <Composition instance={instance} setInstance={setInstance} selected={selected} setSelected={setSelected}></Composition>
-        <Controls play={play} setPlay={setPlay}></Controls>
+        <Controls constructGame={constructGame} game={instance} play={play} setPlay={setPlay}></Controls>
         <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
         <div className="rotate-[45deg] rotate-[135deg] rotate-[225deg] rotate-[315deg]"></div>
       </div>

@@ -10,7 +10,7 @@ export function Toolbar(props) {
   return (
     <div className="w-full max-w-[500px] h-28 text-white text-2xl flex flex-col items-center justify-center bg-[#3e3e3e] rounded-lg py-2 mb-2 shadow-lg overflow-y-auto">
       <div className="h-1/2 flex items-center justify-center mb-2">
-        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'up' ? "border-2 border-white" : ""}`} onClick={() => handleClick('up')}>
+        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'forward' ? "border-2 border-white" : ""}`} onClick={() => handleClick('forward')}>
           <i className={`fa-solid fa-arrow-up`}/>
         </div>
         <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'left' ? "border-2 border-white" : ""}`} onClick={() => handleClick('left')}>
