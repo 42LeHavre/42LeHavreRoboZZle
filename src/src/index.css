@@ -10,8 +10,3 @@
     font-family: Inter, system-ui, sans-serif;
   }
 }
-
-.grid-template {
-  grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: repeat(15, 1fr);
-}
