@@ -51,7 +51,7 @@ export function Tile(props) {
     };
   
     return (
-    <div className={`${classes} text-white rounded w-12 aspect-square flex items-center justify-center bg-[#3e3e3e] hover:bg-[#4a4a4a] shadow-lg hover:shadow transition-all`}
+    <div className={`${classes} text-white cursor-pointer rounded w-12 aspect-square flex items-center justify-center bg-[#3e3e3e] hover:bg-[#4a4a4a] shadow-lg hover:shadow transition-all`}
         onClick={() => handleClick()}>
             {func}
             <i className={`${icon} text-2xl fa-solid`}></i>

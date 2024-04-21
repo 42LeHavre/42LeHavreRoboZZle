@@ -10,27 +10,27 @@ export function Toolbar(props) {
   return (
     <div className="w-full h-28 text-white text-2xl flex flex-col items-center justify-center bg-[#3e3e3e] rounded-lg py-2 mb-2 shadow-lg">
       <div className="h-1/2 flex items-center justify-center mb-2">
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'up' ? "border-2 border-white" : ""}`} onClick={() => handleClick('up')}>
+        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'up' ? "border-2 border-white" : ""}`} onClick={() => handleClick('up')}>
           <i className={`fa-solid fa-arrow-up`}/>
         </div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'left' ? "border-2 border-white" : ""}`} onClick={() => handleClick('left')}>
+        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'left' ? "border-2 border-white" : ""}`} onClick={() => handleClick('left')}>
           <i className={`fa-solid fa-arrow-rotate-left`}/>
         </div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'right' ? "border-2 border-white" : ""}`} onClick={() => handleClick('right')}>
+        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'right' ? "border-2 border-white" : ""}`} onClick={() => handleClick('right')}>
           <i className={`fa-solid fa-arrow-rotate-right`}/>
         </div>
 
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-blue-500 hover:bg-blue-600 ${props.selected === 'blue' ? "border-2 border-white" : ""}`} onClick={() => handleClick('blue')}></div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-red-500 hover:bg-red-600 ${props.selected === 'red' ? "border-2 border-white" : ""}`} onClick={() => handleClick('red')}></div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-green-500 hover:bg-green-600 ${props.selected === 'green' ? "border-2 border-white" : ""}`} onClick={() => handleClick('green')}></div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-black/20 hover:bg-black/30 ${props.selected === 'gray' ? "border-2 border-white" : ""}`} onClick={() => handleClick('gray')}></div>
+        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-blue-500 hover:bg-blue-600 ${props.selected === 'blue' ? "border-2 border-white" : ""}`} onClick={() => handleClick('blue')}></div>
+        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-red-500 hover:bg-red-600 ${props.selected === 'red' ? "border-2 border-white" : ""}`} onClick={() => handleClick('red')}></div>
+        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-green-500 hover:bg-green-600 ${props.selected === 'green' ? "border-2 border-white" : ""}`} onClick={() => handleClick('green')}></div>
+        <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-black/20 hover:bg-black/30 ${props.selected === 'gray' ? "border-2 border-white" : ""}`} onClick={() => handleClick('gray')}></div>
       </div>
         <div class="h-1/2 flex items-center justify-center flex-wrap w-full">
-          <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'cancel' ? "border-2 border-white" : ""}`} onClick={() => handleClick('cancel')}>
+          <div className={`rounded cursor-pointer h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'cancel' ? "border-2 border-white" : ""}`} onClick={() => handleClick('cancel')}>
             <i className={`text-red-500 fa-solid fa-xmark`}/>
           </div>
           {props.functions.map((inst, index) => (
-            <div className={`rounded h-full aspect-square shadow-lg transition-all hover:shadow mx-1 bg-black/20 hover:bg-black/30 flex justify-center items-center font-semibold text-xl ${props.selected === 'F' + (index + 1) ? "border-2 border-white" : ""}`} onClick={() => handleClick('F' + (index + 1))}>F{index + 1}</div>
+            <div className={`rounded cursor-pointer h-full aspect-square shadow-lg transition-all hover:shadow mx-1 bg-black/20 hover:bg-black/30 flex justify-center items-center font-semibold text-xl ${props.selected === 'F' + (index + 1) ? "border-2 border-white" : ""}`} onClick={() => handleClick('F' + (index + 1))}>F{index + 1}</div>
           ))}
         </div>
     </div>
