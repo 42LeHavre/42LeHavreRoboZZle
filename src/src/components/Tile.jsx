@@ -7,31 +7,47 @@ export function Tile(props) {
     const [func, setFunc] = useState("");
 
     const handleClick = () => {
-        if (props.selected == "blue")
+        let newFunc = props.functions;
+        let x = props.indexFunc;
+        let y = props.indexInst;
+
+        if (props.selected == "blue") {
             setClasses("bg-blue-500 hover:bg-blue-600");
-        else if (props.selected == "red")
+            newFunc[x][y].color = "blue";
+        } else if (props.selected == "red") {
             setClasses("bg-red-500 hover:bg-red-600");
-        else if (props.selected == "green")
+            newFunc[x][y].color = "red";
+        } else if (props.selected == "green") {
             setClasses("bg-green-500 hover:bg-green-600");
-        else if (props.selected == "gray")
+            newFunc[x][y].color = "green";
+        } else if (props.selected == "gray") {
             setClasses("");
-        else if (props.selected == "up") {
+            newFunc[x][y].color = "none";
+        } else if (props.selected == "up") {
             setIcon("fa-arrow-up");
             setFunc("");
+            newFunc[x][y].instruction = "up";
         } else if (props.selected == "left") {
             setIcon("fa-arrow-rotate-left");
             setFunc("");
+            newFunc[x][y].instruction = "left";
         } else if (props.selected == "right") {
             setIcon("fa-arrow-rotate-right");
             setFunc("");
+            newFunc[x][y].instruction = "right";
         } else if (props.selected.toString().startsWith("F")) {
             setIcon("");
             setFunc(props.selected);
+            newFunc[x][y].instruction = props.selected;
         } else if (props.selected == "cancel") {
             setClasses("");
             setIcon("");
             setFunc("");
+            newFunc[x][y].instruction = "none";
+            newFunc[x][y].color = "none";
         }
+
+        props.setFunctions(newFunc);
     };
   
     return (

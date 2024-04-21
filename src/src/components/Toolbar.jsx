@@ -7,63 +7,6 @@ export function Toolbar(props) {
     props.setSelected(str);
   };
 
-  const functions = [
-    [
-      {
-        instruction: "forward",
-        color: null
-      },
-      {
-        instruction: "left",
-        color: "red"
-      },
-      {
-        instruction: "right",
-        color: "blue"
-      },
-      {
-        instruction: "F1",
-        color: "green"
-      }
-    ],
-    [
-      {
-        instruction: "forward",
-        color: null
-      },
-      {
-        instruction: "left",
-        color: "red"
-      },
-      {
-        instruction: "right",
-        color: "blue"
-      },
-      {
-        instruction: "F1",
-        color: "green"
-      }
-    ],
-    [
-      {
-        instruction: "forward",
-        color: null
-      },
-      {
-        instruction: "left",
-        color: "red"
-      },
-      {
-        instruction: "right",
-        color: "blue"
-      },
-      {
-        instruction: "F1",
-        color: "green"
-      }
-    ],
-  ];
-
   return (
     <div className="w-full h-28 text-white text-2xl flex flex-col items-center justify-center bg-[#3e3e3e] rounded-lg py-2 mb-2 shadow-lg">
       <div className="h-1/2 flex items-center justify-center mb-2">
@@ -86,7 +29,7 @@ export function Toolbar(props) {
           <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'cancel' ? "border-2 border-white" : ""}`} onClick={() => handleClick('cancel')}>
             <i className={`text-red-500 fa-solid fa-xmark`}/>
           </div>
-          {functions.map((inst, index) => (
+          {props.functions.map((inst, index) => (
             <div className={`rounded h-full aspect-square shadow-lg transition-all hover:shadow mx-1 bg-black/20 hover:bg-black/30 flex justify-center items-center font-semibold text-xl ${props.selected === 'F' + (index + 1) ? "border-2 border-white" : ""}`} onClick={() => handleClick('F' + (index + 1))}>F{index + 1}</div>
           ))}
         </div>
