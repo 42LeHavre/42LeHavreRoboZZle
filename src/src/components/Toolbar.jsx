@@ -1,11 +1,10 @@
 import { useState } from 'preact/hooks';
 import React from 'react';
 
-export function Toolbar() {
-  const [selected, setSelected] = useState(0)
+export function Toolbar(props) {
 
-  const handleClick = (num) => {
-    setSelected(num);
+  const handleClick = (str) => {
+    props.setSelected(str);
   };
 
   const functions = [
@@ -68,23 +67,24 @@ export function Toolbar() {
   return (
     <div className="w-full h-28 text-white flex flex-col items-center justify-center bg-[#3e3e3e] rounded-lg py-2 mb-2">
       <div className="h-1/2 flex items-center justify-center mb-2">
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${selected === 1 ? "border-2 border-white" : ""}`} onClick={() => handleClick(1)}>
+        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'up' ? "border-2 border-white" : ""}`} onClick={() => handleClick('up')}>
           <i className={`text-2xl fa-solid fa-arrow-up`}/>
         </div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${selected === 2 ? "border-2 border-white" : ""}`} onClick={() => handleClick(2)}>
+        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'left' ? "border-2 border-white" : ""}`} onClick={() => handleClick('left')}>
           <i className={`text-2xl fa-solid fa-arrow-rotate-left`}/>
         </div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${selected === 3 ? "border-2 border-white" : ""}`} onClick={() => handleClick(3)}>
+        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30 ${props.selected === 'right' ? "border-2 border-white" : ""}`} onClick={() => handleClick('right')}>
           <i className={`text-2xl fa-solid fa-arrow-rotate-right`}/>
         </div>
 
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-blue-500 hover:bg-blue-600 ${selected === 4 ? "border-2 border-white" : ""}`} onClick={() => handleClick(4)}></div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-red-500 hover:bg-red-600 ${selected === 5 ? "border-2 border-white" : ""}`} onClick={() => handleClick(5)}></div>
-        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-green-500 hover:bg-green-600 ${selected === 6 ? "border-2 border-white" : ""}`} onClick={() => handleClick(6)}></div>
+        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-blue-500 hover:bg-blue-600 ${props.selected === 'blue' ? "border-2 border-white" : ""}`} onClick={() => handleClick('blue')}></div>
+        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-red-500 hover:bg-red-600 ${props.selected === 'red' ? "border-2 border-white" : ""}`} onClick={() => handleClick('red')}></div>
+        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-green-500 hover:bg-green-600 ${props.selected === 'green' ? "border-2 border-white" : ""}`} onClick={() => handleClick('green')}></div>
+        <div className={`rounded h-full aspect-square mx-1 shadow-lg transition-all hover:shadow bg-black/20 hover:bg-black/30 ${props.selected === 'gray' ? "border-2 border-white" : ""}`} onClick={() => handleClick('gray')}></div>
       </div>
-        <div class="h-1/2 flex items-center justify-center">
+        <div class="h-1/2 flex items-center justify-center flex-wrap w-full">
           {functions.map((inst, index) => (
-            <div className={`rounded h-full aspect-square shadow-lg transition-all hover:shadow mx-1 bg-black/20 hover:bg-black/30 flex justify-center items-center font-semibold text-xl ${selected === index + 8 ? "border-2 border-white" : ""}`} onClick={() => handleClick(index + 8)}>F{index + 1}</div>
+            <div className={`rounded h-full aspect-square shadow-lg transition-all hover:shadow mx-1 bg-black/20 hover:bg-black/30 flex justify-center items-center font-semibold text-xl ${props.selected === 'F' + (index + 1) ? "border-2 border-white" : ""}`} onClick={() => handleClick('F' + (index + 1))}>F{index + 1}</div>
           ))}
         </div>
     </div>

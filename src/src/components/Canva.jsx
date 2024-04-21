@@ -41,7 +41,7 @@ export function Canva() {
 
   return (
     <div style={`grid-template-columns: repeat(${dimension.width}, 1fr); grid-template-rows: repeat(${dimension.height}, 1fr); aspect-ratio: ${dimension.width}/${dimension.height};`}
-        className={`shadow-lg grid gap-0 w-full rounded overflow-hidden my-4`}>
+        className={`shadow-lg grid gap-0 w-full rounded overflow-hidden my-4 max-w-[500px]`}>
         {level.map((line, rowIndex) => (
             line.split("").map((cell, cellIndex) => (
                 <div

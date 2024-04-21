@@ -5,15 +5,17 @@ import { Composition } from './components/Composition'
 import { Toolbar } from './components/Toolbar'
 
 export function App() {
-  const [level, setLevel] = useState(1)
+  
+  const [level, setLevel] = useState(1);
+  const [selected, setSelected] = useState(1);
 
   return (
     <>
       <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
         <Canva></Canva>
-        <Composition></Composition>
-        <Toolbar></Toolbar>
+        <Composition selected={selected} setSelected={setSelected}></Composition>
+        <Toolbar selected={selected} setSelected={setSelected}></Toolbar>
       </div>
     </>
   )
