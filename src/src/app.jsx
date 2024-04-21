@@ -60,11 +60,13 @@ export function App() {
     angle: 'right'
   })
 
+  const [play, setPlay] = useState(false);
+
   return (
     <>
       <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
-        <Controls></Controls>
+        <Controls play={play}></Controls>
         <Canva position={pos}></Canva>
         <Composition functions={functions} setFunctions={setFunctions} selected={selected} setSelected={setSelected}></Composition>
         <Toolbar functions={functions} selected={selected} setSelected={setSelected}></Toolbar>
