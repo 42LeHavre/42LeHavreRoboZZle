@@ -6,7 +6,6 @@ export function Tile(props) {
     const [icon, setIcon] = useState("");
     const [func, setFunc] = useState("");
 
-    console.log(props.selected)
     const handleClick = () => {
         if (props.selected == "blue")
             setClasses("bg-blue-500 hover:bg-blue-600");
@@ -28,6 +27,10 @@ export function Tile(props) {
         } else if (props.selected.toString().startsWith("F")) {
             setIcon("");
             setFunc(props.selected);
+        } else if (props.selected == "cancel") {
+            setClasses("");
+            setIcon("");
+            setFunc("");
         }
     };
   
