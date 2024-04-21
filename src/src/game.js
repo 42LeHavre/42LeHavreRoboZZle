@@ -35,17 +35,19 @@ class Instruction
 }
 
 class Game{
-	constructor(_level, _list_instruction) {
+	constructor(_level, _instructions) {
 		this.level = _level;
-		this.list_instruction = _list_instruction;
+		this.instructions = _instructions;
 	}
 }
 
-function sleep(ms) {
+function sleep(ms)
+{
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const getData = async (level) => {
+const getData = async (level) => 
+{
 	try {
 		const response = await fetch('./maps/'+ level + '.json');
 		if (!response.ok) {
@@ -74,7 +76,8 @@ function countCollectible(map)
 	return nbCollectible;
 }
 
-function verifColor(color){
+function verifColor(color)
+{
 	if (color == null)
 		return true;
 	if (color == "blue" && (data.map[data.y][data.x] == 'b' || data.map[data.y][data.x] == 'B'))
@@ -97,7 +100,7 @@ function stopGame()
 
 
 
-// list_instruction['F1'] = [	new Instruction("forward", "blue"),
+// instructions['F1'] = [	new Instruction("forward", "blue"),
 // 							new Instruction("forward", "blue"),
 // 							new Instruction("left", null),
 // 							new Instruction("left", null),
@@ -136,6 +139,7 @@ async function createInstance(level)
 
 //fonction a appeler pour start la game, lire le commentaire en bas de page.
 async function constructGame(gameInstance) {
+	stopValue = false;
 	let value;
 	try {
 		value = await getData(gameInstance.level);
@@ -148,18 +152,17 @@ async function constructGame(gameInstance) {
 	}
 	console.log(gameInstance.level);
 
-	let Code = await startFunction(gameInstance, 'F1');
+	let code = await startFunction(gameInstance, 'F1');
 
 	//la fonction doit retourner le code de fin, 0 si ca c'est bien passer, 1 si j'arrive a la fin des instruction et qu'il reste des 42, et 2 si la je sort de la map.
-	console.log("code de fin : " + Code);
+	console.log("code de fin : " + code);
 
 	//je renitialise la map
 	data = new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map));
-	return Code;
-	
+	return code;
 }
 
-function moov()
+function move()
 {
 	if (data.dir == "up")
 		data.y --;
@@ -268,19 +271,19 @@ function printMapTest()
 //cette fonction retourner le code de fin, 0 si ca c'est bien passer, 1 si j'arrive a la fin des instruction et qu'il reste des 42, et 2 si la je sort de la map.
 async function startFunction(gameInstance, listToDo)
 {
-	for (let i = 0; i < gameInstance.list_instruction[listToDo].length || stopValue; i++)
+	for (let i = 0; i < gameInstance.instructions[listToDo].length && stopValue != true; i++)
 	{
 		await sleep(deltaTime);
-		console.log(gameInstance.list_instruction[listToDo][i]);
-		if (verifColor(gameInstance.list_instruction[listToDo][i].color) === true)
+		console.log(gameInstance.instructions[listToDo][i]);
+		if (verifColor(gameInstance.instructions[listToDo][i].color) === true)
 		{
-			if (gameInstance.list_instruction[listToDo][i].mouvement == "forward")
-				moov();
-			else if (gameInstance.list_instruction[listToDo][i].mouvement == "left" || gameInstance.list_instruction[listToDo][i].mouvement == "right")
-				changeDir(gameInstance.list_instruction[listToDo][i].mouvement);
-			else if (gameInstance.list_instruction[listToDo][i].mouvement != null)
+			if (gameInstance.instructions[listToDo][i].mouvement == "forward")
+				move();
+			else if (gameInstance.instructions[listToDo][i].mouvement == "left" || gameInstance.instructions[listToDo][i].mouvement == "right")
+				changeDir(gameInstance.instructions[listToDo][i].mouvement);
+			else if (gameInstance.instructions[listToDo][i].mouvement != null)
 			{
-				let tmp = await startFunction(gameInstance, gameInstance.list_instruction[listToDo][i].mouvement);
+				let tmp = await startFunction(gameInstance, gameInstance.instructions[listToDo][i].mouvement);
 				if (tmp != 1)
 					return tmp;
 			}
@@ -329,7 +332,7 @@ pour démarrer une game appelez la fonction constructGame(), elle prend en param
 SI JAMAIS TU VEUX LA CONSTRUIRE A LA MAIN VOICI COMMENT ELLE SE COMPORTE : 
 elle Se construit avec 2 arguments, 
 Le premier est une chaine de caractères qui représente le nom du lvl (mais aussi le nom du fichier json en question);
-Le deuxième est un objet nomme list_instruction(f1,f2,fx...) qui contient un tableau avec en premiere colonne une chaine de caractères et en deuxième une classe instruction prenant le mouvement effectué et la couleur de la case
+Le deuxième est un objet nomme instructions(f1,f2,fx...) qui contient un tableau avec en premiere colonne une chaine de caractères et en deuxième une classe instruction prenant le mouvement effectué et la couleur de la case
 formate comme ceci :
 
 type de mouvement : 
@@ -351,8 +354,8 @@ voici un exemple de comment on peut start une game :
 
 
 let level = "level_1";
-let list_instruction = {};
-list_instruction['F1'] = [	new Instruction("forward", "blue"),
+let instructions = {};
+instructions['F1'] = [	new Instruction("forward", "blue"),
 							new Instruction("forward", "blue"),
 							new Instruction("left", null),
 							new Instruction("left", null),
@@ -360,7 +363,7 @@ list_instruction['F1'] = [	new Instruction("forward", "blue"),
 							new Instruction("F2", null),
 						 
 ];
-list_instruction['F2'] = [	new Instruction("forward", "blue"),
+instructions['F2'] = [	new Instruction("forward", "blue"),
 							new Instruction("forward", "blue"),
 							new Instruction("left", "blue"),
 							new Instruction("left", "blue"),
@@ -370,12 +373,12 @@ list_instruction['F2'] = [	new Instruction("forward", "blue"),
 							new Instruction("F3", null),
 ];
 
-list_instruction['F3'] = [	new Instruction("right", "blue"),
+instructions['F3'] = [	new Instruction("right", "blue"),
 							new Instruction("F3", "blue"),
 							
 ];
 				
-let gameInstance = new Game(level, list_instruction);
+let gameInstance = new Game(level, instructions);
 
 constructGame(gameInstance);
 
