@@ -16,7 +16,7 @@ let data;
 	et un entier nomme _nbCollectible représentant le nombre de collectibles restant
 */
 
-class Data{
+class Data {
 	constructor(_map, _x, _y, _dir, _nbCollectible) {
 		this.map = _map;
 		this.x = _x;
@@ -26,15 +26,14 @@ class Data{
 	}
 }
 
-class Instruction
-{
+class Instruction {
 	constructor(_movement, _color) {
 		this.movement = _movement;
 		this.color = _color;
 	}
 }
 
-class Game{
+class Game {
 	constructor(_level, _instructions) {
 		this.level = _level;
 		this.instructions = _instructions;
@@ -42,8 +41,7 @@ class Game{
 }
 
 
-export function move(data)
-{
+export function move(data) {
 	let newData = data;
 	if (newData.dir == "up")
 		newData.y --;
@@ -93,8 +91,7 @@ export function changeDir(dir, data) {
 	return newData;
 }
 
-export function collectCollectible(data)
-{
+export function collectCollectible(data) {
 	let newData = data
 	const line = data.map[data.y].split("");
 	if (line[data.x] == 'B')
@@ -108,8 +105,7 @@ export function collectCollectible(data)
 	return data;
 }
 
-export function collisionDetect(data)
-{
+export function collisionDetect(data) {
 	if (data.x < 0 || data.y < 0 || data.y >= data.map.length || data.x >= data.map[data.y].length) // si je sort du tableau de la map
 		return 1;
 	if (data.map[data.y][data.x] == ' ')
@@ -117,8 +113,7 @@ export function collisionDetect(data)
 	return 0;
 }
 
-export function verifColor(color, map, data)
-{
+export function verifColor(color, map, data) {
 	if (color == null)
 		return true;
 	if (color == "blue" && (map[data.y][data.x] == 'b' || map[data.y][data.x] == 'B'))
@@ -130,14 +125,11 @@ export function verifColor(color, map, data)
 	return false;
 }
 
-export function countCollectible(map)
-{
+export function countCollectible(map) {
 	let nbCollectible = 0;
-	for(let i = 0; i < map.length; i++)
-	{
+	for(let i = 0; i < map.length; i++) {
 		const row = map[i];
-		for (let j = 0; j < row.length; j++)
-		{
+		for (let j = 0; j < row.length; j++) {
 			if (row[j] == 'B' || row[j] == 'R' || row[j] == 'G')
 				nbCollectible ++;
 		}
@@ -145,8 +137,7 @@ export function countCollectible(map)
 	return nbCollectible;
 }
 
-export const getData = async (level) =>
-{
+export const getData = async (level) => {
 	try {
 		const response = await fetch('./maps/'+ level + '.json');
 		if (!response.ok) {
@@ -160,7 +151,6 @@ export const getData = async (level) =>
 	}
 }
 
-export function sleep(ms)
-{
+export function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }

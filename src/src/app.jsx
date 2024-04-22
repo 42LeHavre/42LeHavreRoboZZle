@@ -8,8 +8,7 @@ import { useEffect } from 'preact/hooks'
 
 import { deltaTime, sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
-class Instruction
-{
+class Instruction {
 	constructor(_movement, _color) {
 		this.movement = _movement;
 		this.color = _color;
@@ -86,22 +85,18 @@ export function App() {
     return code;
   }
 
-  function stopGame()
-  {
+  function stopGame() {
     setStop(true);
   }
 
   async function startFunction(gameInstance, listToDo) {
     for (let i = 0; i < gameInstance.instructions[listToDo].length && !stop; i++) {
-      // console.log(data);
       if (verifColor(gameInstance.instructions[listToDo][i].color, data.map, data) === true) {
-        if (gameInstance.instructions[listToDo][i].movement == "forward")
-        {
+        if (gameInstance.instructions[listToDo][i].movement == "forward") {
           setData(Object.assign(new Data(), move(data)));
           await sleep(deltaTime);
         } 
-        else if (gameInstance.instructions[listToDo][i].movement == "left" || gameInstance.instructions[listToDo][i].movement == "right")
-        {
+        else if (gameInstance.instructions[listToDo][i].movement == "left" || gameInstance.instructions[listToDo][i].movement == "right") {
           setData(Object.assign(new Data(), changeDir(gameInstance.instructions[listToDo][i].movement, data)));
           await sleep(deltaTime);
         }
@@ -115,18 +110,14 @@ export function App() {
       if (collisionDetect(data) == 1)
         return 2;
       setData(Object.assign(new Data(), collectCollectible(data)));
-
       if (data.nbCollectible == 0)
         return 0;
-      
-      // console.log(gameInstance)
-
     }
 
-    if (data.nbCollectible == 0) //ici je return 0 si j'ai recuperer tout les collectible
+    if (data.nbCollectible == 0)
       return 0;
     
-    return 1; //ici je return 1 si les instruction ce sont fini 
+    return 1;
   }
 
   const [level, setLevel] = useState(1);
@@ -137,18 +128,10 @@ export function App() {
     setInstance(await createInstance(`level_${level}`));
   }, []);
 
-  // Have to rebuild the logic inside the interval
   useEffect(() => {
-    // let interval;
     if (play) {
-
-      // if (i < )
       constructGame(instance);
     }
-
-    // return () => clearInterval(interval);
-    
-
   }, [play]);
 
   return (
