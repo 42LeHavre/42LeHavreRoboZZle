@@ -3,8 +3,9 @@ import React from 'react';
 export function Controls(props) {
 
   async function handleClick() {
-    console.log(props.constructGame(props.game));
-    console.log(props.game);
+    // console.log(props.constructGame(props.game));
+    // console.log(props.game);
+    props.setPlay(!props.play);
   }
   return (
     <div className="w-full mb-2 flex justify-center items-center">

@@ -31,6 +31,7 @@ export function Canva(props) {
   }, [props.data.map]);
 
   function getCellColor(char) {
+    console.log("affi :" + props.data.x)
     if (char.toLowerCase() == 'b')
         return 'from-blue-500 to-blue-600';
     else if (char.toLowerCase() == 'r')

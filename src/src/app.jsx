@@ -23,6 +23,7 @@ class Data {
 		this.y = _y;
 		this.dir = _dir;
 		this.nbCollectible = _nbCollectible;
+    this.returnCode = -1;
 	}
 }
 
@@ -89,27 +90,33 @@ export function App() {
 
   async function startFunction(gameInstance, listToDo) {
     for (let i = 0; i < gameInstance.instructions[listToDo].length && !stop; i++) {
-      console.log(data);
-      await sleep(deltaTime);
+      // console.log(data);
       if (verifColor(gameInstance.instructions[listToDo][i].color, data.map, data) === true) {
         if (gameInstance.instructions[listToDo][i].movement == "forward")
-          setData(move(data));
+        {
+          setData(Object.assign(new Data(), move(data)));
+          await sleep(deltaTime);
+        } 
         else if (gameInstance.instructions[listToDo][i].movement == "left" || gameInstance.instructions[listToDo][i].movement == "right")
-          setData(changeDir(gameInstance.instructions[listToDo][i].movement, data));
+        {
+          setData(Object.assign(new Data(), changeDir(gameInstance.instructions[listToDo][i].movement, data)));
+          await sleep(deltaTime);
+        }
         else if (gameInstance.instructions[listToDo][i].movement != null) {
           let tmp = await startFunction(gameInstance, gameInstance.instructions[listToDo][i].movement);
           if (tmp != 1)
             return tmp;
-        }
+        } else
+          await sleep(deltaTime);
+        
       }
       if (collisionDetect(data) == 1)
         return 2;
-
-      setData(collectCollectible(data));
+      setData(Object.assign(new Data(), collectCollectible(data)));
 
       if (data.nbCollectible == 0)
         return 0;
-      console.log(gameInstance)
+      // console.log(gameInstance)
 
     }
     if (data.nbCollectible == 0)
@@ -126,18 +133,22 @@ export function App() {
   }, []);
 
   // Have to rebuild the logic inside the interval
-  // useEffect(() => {
-  //   if (play) {
-  //     let i = 0;
+  useEffect(() => {
+    // let interval;
+    if (play) {
+      let i = -1;
 
-  //     if (i < )
-  //     const interval = setInterval(() => {
-        
-  //     }, 1000);
-  //   }
+      // if (i < )
+      i = constructGame(instance);
+      if (i != -1)
+        console.log("COUCOU");
+      
+    }
 
-  //   return () => clearInterval(interval);
-  // }, [play]);
+    // return () => clearInterval(interval);
+    
+
+  }, [play]);
 
   return (
     <>
