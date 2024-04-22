@@ -42,14 +42,18 @@ level_1.json
 "map"[] represents the map under character string array form
 
 b = Case blue.
+
 r = Case red.
+
 g = Case green.
 
 when the letter is capitalized it means that a collectible places it on
 
 B = Case blue + collectible.
-r = Case red + collectible
-g = Case green + collectible
+
+r = Case red + collectible.
+
+g = Case green + collectible.
 
 "starting_pos" represents the position of the player in x and y, "dir" indicates ca direction in the form of  : 
 
