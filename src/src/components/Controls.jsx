@@ -3,8 +3,6 @@ import React from 'react';
 export function Controls(props) {
 
   async function handleClick() {
-    // console.log(props.constructGame(props.game));
-    // console.log(props.game);
     props.setPlay(!props.play);
   }
   return (

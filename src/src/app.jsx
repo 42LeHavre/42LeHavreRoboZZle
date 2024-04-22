@@ -38,6 +38,8 @@ export function App() {
   const [data, setData] = useState(new Data([], 0, 0, "left", 0));
   const [stop, setStop] = useState(false);
 
+  
+
   async function createInstance(level) {
     let game;
     let value;
@@ -57,23 +59,34 @@ export function App() {
       console.log("ERROR : " + error);
       return null;
     }
-    setData(new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map)));
+    let newData = data;
+    newData.map = value.map;
+    newData.x = value.starting_pos.x;
+    newData.y = value.starting_pos.y;
+    newData.dir = value.starting_pos.dir
     
+    setData(Object.assign(new Data(), newData));
     return game;
   }
 
   async function constructGame(gameInstance) {
     let stopValue = stop;
-    stopValue = true;
+    stopValue = false;
     setStop(stopValue);
 
     let value;
     try {
       value = await getData(gameInstance.level);
+      let newData = data;
+      newData.map = value.map;
+      newData.x = value.starting_pos.x;
+      newData.y = value.starting_pos.y;
+      newData.dir = value.starting_pos.dir
+      newData.nbCollectible = countCollectible(value.map);
+      newData.returnCode = -1;
 
-      setData(new Data(value.map, value.starting_pos.x, value.starting_pos.y, value.starting_pos.dir, countCollectible(value.map)));
+      setData(Object.assign(new Data(), newData));
     } catch (error) {
-
       console.log(error);
       return ;
     }
@@ -82,6 +95,7 @@ export function App() {
     let newData = data;
     newData.value = code;
     setData(Object.assign(new Data(), newData));
+    setPlay(false);
     return code;
   }
 
@@ -113,7 +127,6 @@ export function App() {
       if (data.nbCollectible == 0)
         return 0;
     }
-
     if (data.nbCollectible == 0)
       return 0;
     
@@ -128,7 +141,7 @@ export function App() {
     setInstance(await createInstance(`level_${level}`));
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (play) {
       constructGame(instance);
     }
@@ -140,7 +153,7 @@ export function App() {
         <Level level={level} ></Level>
         <Canva data={data}></Canva>
         <Composition instance={instance} setInstance={setInstance} selected={selected} setSelected={setSelected}></Composition>
-        <Controls constructGame={constructGame} game={instance} play={play} setPlay={setPlay}></Controls>
+        <Controls constructGame={constructGame} game={instance} play={play} setPlay={setPlay} data={data}></Controls>
         <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
         <div className="rotate-[45deg] rotate-[135deg] rotate-[225deg] rotate-[315deg]"></div>
       </div>
