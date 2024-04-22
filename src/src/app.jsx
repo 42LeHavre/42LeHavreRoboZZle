@@ -80,6 +80,9 @@ export function App() {
     }
   
     let code = await startFunction(gameInstance, 0);
+    let newData = data;
+    newData.value = code;
+    setData(Object.assign(new Data(), newData));
     return code;
   }
 
@@ -105,10 +108,9 @@ export function App() {
         else if (gameInstance.instructions[listToDo][i].movement != null) {
           let tmp = await startFunction(gameInstance, gameInstance.instructions[listToDo][i].movement);
           if (tmp != 1)
-            return tmp;
+            return tmp; 
         } else
           await sleep(deltaTime);
-        
       }
       if (collisionDetect(data) == 1)
         return 2;
@@ -116,12 +118,15 @@ export function App() {
 
       if (data.nbCollectible == 0)
         return 0;
+      
       // console.log(gameInstance)
 
     }
-    if (data.nbCollectible == 0)
+
+    if (data.nbCollectible == 0) //ici je return 0 si j'ai recuperer tout les collectible
       return 0;
-    return 1;
+    
+    return 1; //ici je return 1 si les instruction ce sont fini 
   }
 
   const [level, setLevel] = useState(1);
@@ -136,13 +141,9 @@ export function App() {
   useEffect(() => {
     // let interval;
     if (play) {
-      let i = -1;
 
       // if (i < )
-      i = constructGame(instance);
-      if (i != -1)
-        console.log("COUCOU");
-      
+      constructGame(instance);
     }
 
     // return () => clearInterval(interval);
