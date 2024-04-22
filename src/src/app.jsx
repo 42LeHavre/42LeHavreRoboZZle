@@ -37,8 +37,29 @@ export function App() {
   const [selected, setSelected] = useState("");
   const [data, setData] = useState(new Data([], 0, 0, "left", 0));
   const [stop, setStop] = useState(false);
+  const [level, setLevel] = useState(1);
+  const [play, setPlay] = useState(false);
+  const [instance, setInstance] = useState(new Game("lvl", []));
 
-  
+
+  async function resetData(gameInstance){
+    
+    let value;
+    try {
+      value = await getData(gameInstance.level);
+      let newData = data;
+      newData.map = value.map;
+      newData.x = value.starting_pos.x;
+      newData.y = value.starting_pos.y;
+      newData.dir = value.starting_pos.dir
+      newData.nbCollectible = countCollectible(value.map);
+      newData.returnCode = -1;
+
+      setData(Object.assign(new Data(), newData));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function createInstance(level) {
     let game;
@@ -88,7 +109,7 @@ export function App() {
       setData(Object.assign(new Data(), newData));
     } catch (error) {
       console.log(error);
-      return ;
+      return null;
     }
   
     let code = await startFunction(gameInstance, 0);
@@ -133,9 +154,7 @@ export function App() {
     return 1;
   }
 
-  const [level, setLevel] = useState(1);
-  const [play, setPlay] = useState(false);
-  const [instance, setInstance] = useState(new Game("lvl", []));
+  
 
   useEffect(async () => {
     setInstance(await createInstance(`level_${level}`));
