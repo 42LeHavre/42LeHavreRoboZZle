@@ -5,6 +5,7 @@ import { Canva } from './components/Canva'
 import { Composition } from './components/Composition'
 import { Toolbar } from './components/Toolbar'
 import { useEffect } from 'preact/hooks'
+import { PopUp } from './components/PopUp'
 
 import { deltaTime, sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
@@ -22,7 +23,6 @@ class Data {
 		this.y = _y;
 		this.dir = _dir;
 		this.nbCollectible = _nbCollectible;
-    this.returnCode = -1;
 	}
 }
 
@@ -40,7 +40,11 @@ export function App() {
   const [level, setLevel] = useState(1);
   const [play, setPlay] = useState(false);
   const [instance, setInstance] = useState(new Game("lvl", []));
+  const [returnCode, setReturnCode] = useState(-1);
 
+  const [popUp, setPopUp] = useState(false);
+  const [popUpText, setPopUpText] = useState("ft_popup");
+  const [popUpButton, setPopUpButton] = useState("Go");
 
   async function resetData(gameInstance){
     
@@ -53,8 +57,8 @@ export function App() {
       newData.y = value.starting_pos.y;
       newData.dir = value.starting_pos.dir
       newData.nbCollectible = countCollectible(value.map);
-      newData.returnCode = -1;
 
+      setReturnCode(-1);
       setData(Object.assign(new Data(), newData));
     } catch (error) {
       console.log(error);
@@ -104,7 +108,7 @@ export function App() {
       newData.y = value.starting_pos.y;
       newData.dir = value.starting_pos.dir
       newData.nbCollectible = countCollectible(value.map);
-      newData.returnCode = -1;
+      setReturnCode(-1);
 
       setData(Object.assign(new Data(), newData));
     } catch (error) {
@@ -113,9 +117,7 @@ export function App() {
     }
   
     let code = await startFunction(gameInstance, 0);
-    let newData = data;
-    newData.value = code;
-    setData(Object.assign(new Data(), newData));
+    setReturnCode(code);
     setPlay(false);
     return code;
   }
@@ -154,20 +156,36 @@ export function App() {
     return 1;
   }
 
-  
-
   useEffect(async () => {
     setInstance(await createInstance(`level_${level}`));
   }, []);
+
+  useEffect(() => {
+    if (returnCode != -1)
+      setPopUp(true);
+
+    if (returnCode == 0) {
+      setPopUpText("You win !");
+      setPopUpButton("Next level");
+    } else if (returnCode == 1) {
+      setPopUpText("Function over, you loose !");
+      setPopUpButton("Retry");
+    } else if (returnCode == 2) {
+      setPopUpText("Out of map, you loose !");
+      setPopUpButton("Retry");
+    }
+  }, [returnCode]);
 
   useEffect(async () => {
     if (play) {
       constructGame(instance);
     }
+    console.log("code ", returnCode);
   }, [play]);
 
   return (
     <>
+      <PopUp active={popUp} setActive={setPopUp} button={popUpButton} actionButton={resetData} game={instance}>{popUpText}</PopUp>
       <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
         <Canva data={data}></Canva>
