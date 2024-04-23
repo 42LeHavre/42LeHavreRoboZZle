@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-here is how this builds the map.json file :
+Here is how to build the map.json file :
 ```
 level_1.json
 {
@@ -39,27 +39,27 @@ level_1.json
 }
 ```
 
-"map"[] represents the map under character string array form
+"map"[] represents the map with a character norm
 
-b = Case blue.
+b = Blue tile.
 
-r = Case red.
+r = Red tile.
 
-g = Case green.
-
------
-
-when the letter is capitalized it means that a collectible places it on
-
-B = Case blue + collectible.
-
-r = Case red + collectible.
-
-g = Case green + collectible.
+g = Green tile.
 
 -----
 
-"starting_pos" represents the position of the player in x and y, "dir" indicates ca direction in the form of  : 
+When the letter is capitalized it means that a collectible places it on
+
+B = Blue tile + collectible.
+
+R = Red tile + collectible.
+
+G = Green tile + collectible.
+
+-----
+
+"starting_pos" represents the position of the player in x and y, "dir" indicates the direction with theses options : 
 
 "right"
 "left"
@@ -68,7 +68,7 @@ g = Case green + collectible.
 
 -----
 
-"functions" represents an array that contains all the functions and the number of statements that can contain.
+"functions" represents an array that contains all the functions and the number of statements it can contain.
 
 example:
 ```
