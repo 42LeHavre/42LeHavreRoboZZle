@@ -48,6 +48,8 @@ export function App() {
   const [popUpText, setPopUpText] = useState("ft_popup");
   const [popUpButton, setPopUpButton] = useState("Go");
 
+  const [currentInst, setCurrentInst] = useState({x: -1, y: -1});
+
   const NB_LEVEL = 2;
 
   async function resetData(gameInstance){
@@ -133,6 +135,7 @@ export function App() {
   async function startFunction(gameInstance, listToDo) {
     for (let i = 0; i < gameInstance.instructions[listToDo].length && !stop; i++) {
       let curr = gameInstance.instructions[listToDo][i];
+      setCurrentInst(({x: listToDo, y: i}));
 
       if (verifColor(curr.color, data.map, data) === true) {
         if (curr.movement == "forward") {
@@ -166,6 +169,7 @@ export function App() {
   useEffect(async () => {
     if (returnCode != -1)
       setPopUp(true);
+    setCurrentInst({x: -1, y: -1});
 
     if (returnCode == 0) {
       setPopUpText("You win !");
@@ -192,10 +196,13 @@ export function App() {
       <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
         <Canva data={data}></Canva>
-        <Composition instance={instance} setInstance={setInstance} selected={selected} level={level}></Composition>
+        <Composition instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
         <Controls game={instance} play={play} setPlay={setPlay} data={data}></Controls>
         <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
-        <div className="rotate-[45deg] rotate-[135deg] rotate-[225deg] rotate-[315deg]"></div>
+        <div className="rotate-[45deg]"></div>
+        <div className="rotate-[135deg]"></div>
+        <div className="rotate-[225deg]"></div>
+        <div className="rotate-[315deg]"></div>
       </div>
     </>
   )

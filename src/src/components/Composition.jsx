@@ -13,7 +13,7 @@ export function Composition(props) {
             <div style={`grid-template-columns: repeat(${func.length + 1}, 1fr);`} className="grid my-2 rounded gap-1 font-semibold text-xl">
               <div className="bg-blue-500 text-white rounded w-12 aspect-square flex items-center justify-center shadow-lg">F{indexFunc + 1}</div>
               {func.map((inst, indexInst) => (
-                <Tile selected={props.selected} instance={props.instance} setInstance={props.setInstance} indexFunc={indexFunc} indexInst={indexInst} level={props.level}/>
+                <Tile currentInst={props.currentInst} selected={props.selected} instance={props.instance} setInstance={props.setInstance} indexFunc={indexFunc} indexInst={indexInst} level={props.level}/>
               ))}
             </div>
           )) : null

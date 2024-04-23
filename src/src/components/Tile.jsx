@@ -55,6 +55,13 @@ export function Tile(props) {
         setIcon("");
         setFunc("");
     }, [props.level])
+
+    useEffect(() => {
+        if (props.currentInst.x == props.indexFunc && props.currentInst.y == props.indexInst)
+            setClasses(classes + " border-2 border-white");
+        else
+            setClasses(classes.split(" border-2 border-white").join(''));
+    }, [props.currentInst])
   
     return (
     <div className={`${classes} text-white cursor-pointer rounded w-12 aspect-square flex items-center justify-center bg-[#3e3e3e] hover:bg-[#4a4a4a] shadow-lg hover:shadow transition-all`}
