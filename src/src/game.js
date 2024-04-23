@@ -106,7 +106,7 @@ export function collectCollectible(data) {
 }
 
 export function collisionDetect(data) {
-	if (data.x < 0 || data.y < 0 || data.y >= data.map.length || data.x >= data.map[data.y].length) // si je sort du tableau de la map
+	if (data.x < 0 || data.y < 0 || data.y >= data.map.length || data.x >= data.map[data.y].length)
 		return 1;
 	if (data.map[data.y][data.x] == ' ')
 		return 1;

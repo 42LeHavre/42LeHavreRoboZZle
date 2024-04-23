@@ -54,7 +54,6 @@ export function Tile(props) {
         setClasses("");
         setIcon("");
         setFunc("");
-        console.log('pass');
     }, [props.level])
   
     return (

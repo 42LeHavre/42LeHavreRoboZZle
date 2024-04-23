@@ -34,17 +34,21 @@ class Game {
 }
 
 export function App() {
-  const [selected, setSelected] = useState("");
   const [data, setData] = useState(new Data([], 0, 0, "left", 0));
+  const [instance, setInstance] = useState(new Game("lvl", []));
+
   const [stop, setStop] = useState(false);
   const [level, setLevel] = useState(1);
-  const [play, setPlay] = useState(false);
-  const [instance, setInstance] = useState(new Game("lvl", []));
   const [returnCode, setReturnCode] = useState(-1);
+
+  const [selected, setSelected] = useState("");
+  const [play, setPlay] = useState(false);
 
   const [popUp, setPopUp] = useState(false);
   const [popUpText, setPopUpText] = useState("ft_popup");
   const [popUpButton, setPopUpButton] = useState("Go");
+
+  const NB_LEVEL = 2;
 
   async function resetData(gameInstance){
     
@@ -128,17 +132,17 @@ export function App() {
 
   async function startFunction(gameInstance, listToDo) {
     for (let i = 0; i < gameInstance.instructions[listToDo].length && !stop; i++) {
-      if (verifColor(gameInstance.instructions[listToDo][i].color, data.map, data) === true) {
-        if (gameInstance.instructions[listToDo][i].movement == "forward") {
+      let curr = gameInstance.instructions[listToDo][i];
+
+      if (verifColor(curr.color, data.map, data) === true) {
+        if (curr.movement == "forward") {
           setData(Object.assign(new Data(), move(data)));
           await sleep(deltaTime);
-        } 
-        else if (gameInstance.instructions[listToDo][i].movement == "left" || gameInstance.instructions[listToDo][i].movement == "right") {
-          setData(Object.assign(new Data(), changeDir(gameInstance.instructions[listToDo][i].movement, data)));
+        } else if (curr.movement == "left" || curr.movement == "right") {
+          setData(Object.assign(new Data(), changeDir(curr.movement, data)));
           await sleep(deltaTime);
-        }
-        else if (gameInstance.instructions[listToDo][i].movement != null) {
-          let tmp = await startFunction(gameInstance, gameInstance.instructions[listToDo][i].movement);
+        } else if (curr.movement != null) {
+          let tmp = await startFunction(gameInstance, curr.movement);
           if (tmp != 1)
             return tmp; 
         } else
@@ -146,18 +150,17 @@ export function App() {
       }
       if (collisionDetect(data) == 1)
         return 2;
+
       setData(Object.assign(new Data(), collectCollectible(data)));
       if (data.nbCollectible == 0)
         return 0;
     }
-    if (data.nbCollectible == 0)
-      return 0;
-    return 1;
+
+    return !(data.nbCollectible == 0);
   }
 
   useEffect(async () => {
     await createInstance(`level_${level}`);
-    console.log("instance : ", instance);
   }, [level]);
 
   useEffect(async () => {
@@ -167,9 +170,8 @@ export function App() {
     if (returnCode == 0) {
       setPopUpText("You win !");
       setPopUpButton("Next level");
-      if (level < 2) { // Condition a modifier selon le nb du level
+      if (level < NB_LEVEL)
         setLevel(level + 1);
-      }
     } else if (returnCode == 1) {
       setPopUpText("Function over, you loose !");
       setPopUpButton("Retry");
@@ -180,10 +182,8 @@ export function App() {
   }, [returnCode]);
 
   useEffect(async () => {
-    if (play) {
+    if (play)
       constructGame(instance);
-    }
-    console.log("code ", returnCode);
   }, [play]);
 
   return (
@@ -192,8 +192,8 @@ export function App() {
       <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
         <Canva data={data}></Canva>
-        <Composition instance={instance} setInstance={setInstance} selected={selected} setSelected={setSelected} level={level}></Composition>
-        <Controls constructGame={constructGame} game={instance} play={play} setPlay={setPlay} data={data}></Controls>
+        <Composition instance={instance} setInstance={setInstance} selected={selected} level={level}></Composition>
+        <Controls game={instance} play={play} setPlay={setPlay} data={data}></Controls>
         <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
         <div className="rotate-[45deg] rotate-[135deg] rotate-[225deg] rotate-[315deg]"></div>
       </div>
