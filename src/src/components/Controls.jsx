@@ -1,22 +1,18 @@
   import React from 'react';
 
-  export function Controls(props) { // Initialisez deltaTime avec une valeur par défaut
+  export function Controls(props) {
 
     async function handleChange(event) {
-      let newValue = parseInt(event.target.value); // Obtenez la nouvelle valeur de la barre de défilement
+      let newValue = parseInt(event.target.value);
       props.setDeltaTime(newValue);
-      console.log(props.deltaTime);
     }
-
 
     async function handleClick() {
       props.setPlay(!props.play);
-      console.log("here", props.play)
     }
 
-
     return (  
-      <div className="w-full my-2 flex justify-evenly px-4 items-center">
+      <div className="w-full my-2 flex justify-evenly px-4 items-center max-w-[500px]">
           <button onClick={() => handleClick()} className={`text-white rounded cursor-pointer py-3 px-4 w-20 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30`}>
             <i className={`fa-solid ${props.play ? "fa-pause" : "fa-play"}`}/>
           </button>

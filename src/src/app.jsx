@@ -138,8 +138,6 @@ export function App() {
       let curr = gameInstance.instructions[listToDo][i];
       setCurrentInst(({x: listToDo, y: i}));
 
-      console.log(play);
-      console.log(refTime.current);
       if (verifColor(curr.color, data.map, data) === true) {
         if (curr.movement == "forward") {
           setData(Object.assign(new Data(), move(data)));
