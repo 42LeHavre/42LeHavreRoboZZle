@@ -1,4 +1,3 @@
-export let deltaTime = 1000;
 let stopValue = false;
 let data;
 

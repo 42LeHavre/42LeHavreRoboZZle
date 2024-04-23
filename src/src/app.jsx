@@ -7,7 +7,9 @@ import { Toolbar } from './components/Toolbar'
 import { useEffect } from 'preact/hooks'
 import { PopUp } from './components/PopUp'
 
-import { deltaTime, sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
+import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
+
+const NB_LEVEL = 2; // A MODIFIER POUR AJOUTER DES MAP
 
 class Instruction {
 	constructor(_movement, _color) {
@@ -50,8 +52,8 @@ export function App() {
   const [popUpButton, setPopUpButton] = useState("Go");
 
   const [currentInst, setCurrentInst] = useState({x: -1, y: -1});
-
-  const NB_LEVEL = 2;
+  const [deltaTime, setDeltaTime] = useState(1000);
+  const refTime = useRef(deltaTime);
 
   async function resetData(gameInstance){
     
@@ -137,21 +139,21 @@ export function App() {
       setCurrentInst(({x: listToDo, y: i}));
 
       console.log(play);
-
+      console.log(refTime.current);
       if (verifColor(curr.color, data.map, data) === true) {
         if (curr.movement == "forward") {
           setData(Object.assign(new Data(), move(data)));
-          await sleep(deltaTime);
+          await sleep(refTime.current);
         } else if (curr.movement == "left" || curr.movement == "right") {
           setData(Object.assign(new Data(), changeDir(curr.movement, data)));
-          await sleep(deltaTime);
+          await sleep(refTime.current);
         } else if (curr.movement != null) {
-          await sleep(deltaTime / 4);
+          await sleep((refTime.current) / 4);
           let tmp = await startFunction(gameInstance, curr.movement);
           if (tmp != 1)
             return tmp; 
         } else
-          await sleep(deltaTime);
+          await sleep(refTime.current);
       }
       if (collisionDetect(data) == 1)
         return 2;
@@ -195,6 +197,10 @@ export function App() {
       playRef.current = play;
   }, [play]);
 
+  useEffect(() => {
+    refTime.current = deltaTime;
+  }, [deltaTime]);
+
   return (
     <>
       <PopUp active={popUp} setActive={setPopUp} button={popUpButton} actionButton={resetData} game={instance}>{popUpText}</PopUp>
@@ -202,7 +208,7 @@ export function App() {
         <Level level={level} ></Level>
         <Canva data={data}></Canva>
         <Composition instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
-        <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop}></Controls>
+        <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop} setDeltaTime={setDeltaTime} deltaTime={deltaTime}></Controls>
         <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
         
         <div className="rotate-[45deg]"></div>
