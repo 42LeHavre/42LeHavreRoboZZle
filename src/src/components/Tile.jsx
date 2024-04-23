@@ -2,7 +2,7 @@ import { useEffect, useState } from 'preact/hooks';
 import React from 'react';
 
 export function Tile(props) {
-    const [classes, setClasses] = useState("");
+    const [classes, setClasses] = useState(String(""));
     const [icon, setIcon] = useState("");
     const [func, setFunc] = useState("");
 
@@ -58,9 +58,9 @@ export function Tile(props) {
 
     useEffect(() => {
         if (props.currentInst.x == props.indexFunc && props.currentInst.y == props.indexInst)
-            setClasses(classes + " border-2 border-white");
+            setClasses(prevClasses => prevClasses + " border-2 border-white");
         else
-            setClasses(classes.split(" border-2 border-white").join(''));
+            setClasses(prevClasses => prevClasses.split(" border-2 border-white").join(''));
     }, [props.currentInst])
   
     return (
