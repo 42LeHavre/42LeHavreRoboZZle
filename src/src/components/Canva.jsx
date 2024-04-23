@@ -3,23 +3,6 @@ import '../index.css';
 import { useEffect, useState } from 'preact/hooks';
 
 export function Canva(props) {
-    const level = ["b                  b",
-                   "                    ",
-                   "                    ",
-                   "                    ",
-                   "                    ",
-                   "        bbbbb       ",
-                   "       bbbbbbb      ",
-                   "       bBbbbBb      ",
-                   "       rbbbbbg      ",
-                   "        bbbbb       ",
-                   "                    ",
-                   "                    ",
-                   "                    ",
-                   "                    ",
-                   "b                  b",
-  ];
-
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
@@ -31,7 +14,6 @@ export function Canva(props) {
   }, [props.data.map]);
 
   function getCellColor(char) {
-    console.log("affi :" + props.data.x)
     if (char.toLowerCase() == 'b')
         return 'from-blue-500 to-blue-600';
     else if (char.toLowerCase() == 'r')

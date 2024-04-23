@@ -152,21 +152,28 @@ export function App() {
     }
     if (data.nbCollectible == 0)
       return 0;
-    
     return 1;
   }
 
   useEffect(async () => {
-    setInstance(await createInstance(`level_${level}`));
-  }, []);
+    let tmpInstance = await createInstance(`level_${level}`);
+    let newInstance = instance;
+    newInstance.level = tmpInstance.level;
+    newInstance.instructions = tmpInstance.instructions;
+    setInstance(newInstance);
+    console.log("instance : ", instance);
+  }, [level]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (returnCode != -1)
       setPopUp(true);
 
     if (returnCode == 0) {
       setPopUpText("You win !");
       setPopUpButton("Next level");
+      if (level < 2) { // Condition a modifier selon le nb du level
+        setLevel(level + 1);
+      }
     } else if (returnCode == 1) {
       setPopUpText("Function over, you loose !");
       setPopUpButton("Retry");
