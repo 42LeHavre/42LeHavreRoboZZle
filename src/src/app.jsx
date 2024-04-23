@@ -79,7 +79,7 @@ export function App() {
           list[i].push(new Instruction(null, null));
         }
       }
-      game = new Game(level, list);
+      setInstance(new Game(level, list));
     } catch (error) {
       console.log("ERROR : " + error);
       return null;
@@ -156,11 +156,7 @@ export function App() {
   }
 
   useEffect(async () => {
-    let tmpInstance = await createInstance(`level_${level}`);
-    let newInstance = instance;
-    newInstance.level = tmpInstance.level;
-    newInstance.instructions = tmpInstance.instructions;
-    setInstance(newInstance);
+    await createInstance(`level_${level}`);
     console.log("instance : ", instance);
   }, [level]);
 
@@ -196,7 +192,7 @@ export function App() {
       <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
         <Level level={level} ></Level>
         <Canva data={data}></Canva>
-        <Composition instance={instance} setInstance={setInstance} selected={selected} setSelected={setSelected}></Composition>
+        <Composition instance={instance} setInstance={setInstance} selected={selected} setSelected={setSelected} level={level}></Composition>
         <Controls constructGame={constructGame} game={instance} play={play} setPlay={setPlay} data={data}></Controls>
         <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
         <div className="rotate-[45deg] rotate-[135deg] rotate-[225deg] rotate-[315deg]"></div>

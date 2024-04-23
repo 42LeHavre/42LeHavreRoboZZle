@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import React from 'react';
 
 export function Tile(props) {
@@ -49,6 +49,13 @@ export function Tile(props) {
 
         props.setInstance(newInst);
     };
+
+    useEffect(() => {
+        setClasses("");
+        setIcon("");
+        setFunc("");
+        console.log('pass');
+    }, [props.level])
   
     return (
     <div className={`${classes} text-white cursor-pointer rounded w-12 aspect-square flex items-center justify-center bg-[#3e3e3e] hover:bg-[#4a4a4a] shadow-lg hover:shadow transition-all`}
