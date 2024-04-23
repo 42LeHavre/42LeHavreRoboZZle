@@ -6,6 +6,7 @@ import { Composition } from './components/Composition'
 import { Toolbar } from './components/Toolbar'
 import { useEffect } from 'preact/hooks'
 import { PopUp } from './components/PopUp'
+import Router from 'preact-router';
 
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
@@ -201,19 +202,26 @@ export function App() {
 
   return (
     <>
-      <PopUp active={popUp} setActive={setPopUp} button={popUpButton} actionButton={resetData} game={instance}>{popUpText}</PopUp>
-      <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
-        <Level level={level} ></Level>
-        <Canva data={data}></Canva>
-        <Composition instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
-        <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop} setDeltaTime={setDeltaTime} deltaTime={deltaTime}></Controls>
-        <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
-        
-        <div className="rotate-[45deg]"></div>
-        <div className="rotate-[135deg]"></div>
-        <div className="rotate-[225deg]"></div>
-        <div className="rotate-[315deg]"></div>
-      </div>
+      <Router>
+        <div path="/">
+          <PopUp active={popUp} setActive={setPopUp} button={popUpButton} actionButton={resetData} game={instance}>{popUpText}</PopUp>
+          <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
+            <Level level={level} ></Level>
+            <Canva data={data}></Canva>
+            <Composition instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
+            <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop} setDeltaTime={setDeltaTime} deltaTime={deltaTime}></Controls>
+            <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
+            
+            <div className="rotate-[45deg]"></div>
+            <div className="rotate-[135deg]"></div>
+            <div className="rotate-[225deg]"></div>
+            <div className="rotate-[315deg]"></div>
+          </div>
+        </div>
+        <div default className="w-screen h-screen flex justify-center items-center text-xl font-semibold text-white bg-[#2d2d2d]">
+          <h1>404 : Not found</h1>
+        </div>
+      </Router>
     </>
   )
 }

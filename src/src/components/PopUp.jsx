@@ -1,4 +1,3 @@
-import React from 'react';
 
 export function PopUp({ active, setActive, button, actionButton, game, children }) {
   const handleClick = () => {
