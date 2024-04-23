@@ -145,6 +145,7 @@ export function App() {
           setData(Object.assign(new Data(), changeDir(curr.movement, data)));
           await sleep(deltaTime);
         } else if (curr.movement != null) {
+          await sleep(deltaTime / 4);
           let tmp = await startFunction(gameInstance, curr.movement);
           if (tmp != 1)
             return tmp; 
