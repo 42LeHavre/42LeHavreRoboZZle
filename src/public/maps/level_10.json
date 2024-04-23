@@ -1,25 +1,25 @@
 {
 	"map": [
-		"r                  r",
 		"                    ",
 		"                    ",
-		"                    ",
-		"                    ",
-		"       bbbbb        ",
-		"      bbbbbbb       ",
-		"      bBbbbBb       ",
-		"      bbbbbbb       ",
-		"       bbbbb        ",
-		"                    ",
-		"                    ",
-		"                    ",
-		"                    ",
-		"r                  r"
+		"   RR               ",
+		"    G bbRbRbbRbGb   ",
+		"    b G         b   ",
+		"    R b bbbbbGb R   ",
+		"    b R G     R b   ",
+		"    R b b bGb b R   ",
+		"    b R b   G R b   ",
+		"    R b bGbbb b R   ",
+		"    b R       G b   ",
+		"    R bGbRbRbRb b   ",
+		"    b           G   ",
+		"    bGbbRbRbRbRbb   ",
+		"                    "
 		],
 	"starting_pos": {
-		"x": 9,
+		"x": 10,
 		"y": 7,
-		"dir": "up"
+		"dir": "right"
 	},
-	"functions": [5, 2]
+	"functions": [4, 5]
 }
