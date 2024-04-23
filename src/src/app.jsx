@@ -10,7 +10,7 @@ import Router from 'preact-router';
 
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
-const NB_LEVEL = 2; // A MODIFIER POUR AJOUTER DES MAP
+const NB_LEVEL = 14; // A MODIFIER POUR AJOUTER DES MAP
 
 class Instruction {
 	constructor(_movement, _color) {
