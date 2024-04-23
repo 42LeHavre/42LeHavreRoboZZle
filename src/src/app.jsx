@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useRef, useState } from 'preact/hooks'
 import { Level } from './components/Level'
 import { Controls } from './components/Controls'
 import { Canva } from './components/Canva'
@@ -43,6 +43,7 @@ export function App() {
 
   const [selected, setSelected] = useState("");
   const [play, setPlay] = useState(false);
+  const playRef = useRef(play);
 
   const [popUp, setPopUp] = useState(false);
   const [popUpText, setPopUpText] = useState("ft_popup");
@@ -101,9 +102,7 @@ export function App() {
   }
 
   async function constructGame(gameInstance) {
-    let stopValue = stop;
-    stopValue = false;
-    setStop(stopValue);
+    setStop(false);
 
     let value;
     try {
@@ -133,9 +132,11 @@ export function App() {
   }
 
   async function startFunction(gameInstance, listToDo) {
-    for (let i = 0; i < gameInstance.instructions[listToDo].length && !stop; i++) {
+    for (let i = 0; i < gameInstance.instructions[listToDo].length && playRef.current; i++) {
       let curr = gameInstance.instructions[listToDo][i];
       setCurrentInst(({x: listToDo, y: i}));
+
+      console.log(play);
 
       if (verifColor(curr.color, data.map, data) === true) {
         if (curr.movement == "forward") {
@@ -160,7 +161,7 @@ export function App() {
         return 0;
     }
 
-    return !(data.nbCollectible == 0);
+    return playRef.current ?  !(data.nbCollectible == 0) : -2;
   }
 
   useEffect(async () => {
@@ -168,8 +169,10 @@ export function App() {
   }, [level]);
 
   useEffect(async () => {
-    if (returnCode != -1)
+    if (returnCode >= 0)
       setPopUp(true);
+    else if (returnCode == -2)
+      resetData(instance);
     setCurrentInst({x: -1, y: -1});
 
     if (returnCode == 0) {
@@ -189,6 +192,7 @@ export function App() {
   useEffect(async () => {
     if (play)
       constructGame(instance);
+      playRef.current = play;
   }, [play]);
 
   return (
@@ -198,8 +202,9 @@ export function App() {
         <Level level={level} ></Level>
         <Canva data={data}></Canva>
         <Composition instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
-        <Controls game={instance} play={play} setPlay={setPlay} data={data}></Controls>
+        <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop}></Controls>
         <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
+        
         <div className="rotate-[45deg]"></div>
         <div className="rotate-[135deg]"></div>
         <div className="rotate-[225deg]"></div>

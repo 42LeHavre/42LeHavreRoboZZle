@@ -4,6 +4,7 @@ export function Controls(props) {
 
   async function handleClick() {
     props.setPlay(!props.play);
+    console.log("here", props.play)
   }
   return (
     <div className="w-full mb-2 flex justify-center items-center">
