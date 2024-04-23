@@ -16,7 +16,7 @@
           <button onClick={() => handleClick()} className={`text-white rounded cursor-pointer py-3 px-4 w-20 shadow-lg transition-all hover:shadow flex items-center justify-center bg-black/20 hover:bg-black/30`}>
             <i className={`fa-solid ${props.play ? "fa-pause" : "fa-play"}`}/>
           </button>
-          <input id="default-range" type="range" value={props.deltaTime} min={200} max={2000} onChange={handleChange} className="w-1/2 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
+          <input id="default-range" type="range" value={props.deltaTime} min={200} max={2000} onChange={handleChange} style={{direction: 'rtl'}} className="w-1/2 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
       </div>
     );
   }
