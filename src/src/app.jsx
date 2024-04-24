@@ -10,7 +10,7 @@ import Router from 'preact-router';
 
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
-const NB_LEVEL = 14; // A MODIFIER POUR AJOUTER DES MAP
+const NB_LEVEL = 3; // A MODIFIER POUR AJOUTER DES MAP
 
 class Instruction {
 	constructor(_movement, _color) {
@@ -179,8 +179,12 @@ export function App() {
     if (returnCode == 0) {
       setPopUpText("You win !");
       setPopUpButton("Next level");
-      if (level < NB_LEVEL)
-        setLevel(level + 1);
+      if (level < NB_LEVEL) {
+          setLevel(level + 1);
+      } else if (level == NB_LEVEL) {
+	  setPopUpText("You win the game!");
+	  setPopUpButton("Retry last level");
+      }
     } else if (returnCode == 1) {
       setPopUpText("Function over, you loose !");
       setPopUpButton("Retry");
