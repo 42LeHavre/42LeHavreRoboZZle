@@ -1,0 +1,25 @@
+{
+	"map": [
+		"                    ",
+		"                    ",
+		" rgb       bbbbbbbb ",
+		" rGb       bRRRRRRb ",
+		" rGb       bRggggRb ",
+		" rGb             Rb ",
+		" rGb            RRb ",
+		" rGbbbbb       RRbb ",
+		" rGGGGGb      RRbb  ",
+		" rrrrrGb     RRbb   ",
+		"     rGb    RRbb    ",
+		"     rGbbbbbrbrrrr  ",
+		"     rrgggggbbbbbb  ",
+		"                    ",
+		"                    "
+		],
+	"starting_pos": {
+		"x": 2,
+		"y": 2,
+		"dir": "down"
+	},
+	"functions": [6, 6, 6]
+}
