@@ -1,14 +1,14 @@
 {
   "name": "src",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.1.0",
   "homepage": "https://42lehavre.github.io/42LeHavreRobozzle",
+  "private": true,
+  "type": "module",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
-    "build": "vite build",
+    "build": "react-scripts build",
     "preview": "vite preview"
   },
   "dependencies": {
