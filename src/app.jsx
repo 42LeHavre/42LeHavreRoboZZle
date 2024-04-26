@@ -207,7 +207,7 @@ export function App() {
   return (
     <>
       <Router>
-        <div path="/">
+        <div path="/42LeHavreRoboZZle/">
           <PopUp active={popUp} setActive={setPopUp} button={popUpButton} actionButton={resetData} game={instance}>{popUpText}</PopUp>
           <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
             <Level level={level} ></Level>
