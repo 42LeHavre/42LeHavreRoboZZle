@@ -11,6 +11,9 @@ export function Tile(props) {
         let x = props.indexFunc;
         let y = props.indexInst;
 
+        if (props.play)
+            return ;
+
         if (props.selected == "blue") {
             setClasses("bg-blue-500 hover:bg-blue-600");
             newInst.instructions[x][y].color = "blue";

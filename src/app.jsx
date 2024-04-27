@@ -10,7 +10,7 @@ import Router from 'preact-router';
 
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
-const NB_LEVEL = 15; // A MODIFIER POUR AJOUTER DES MAP
+const NB_LEVEL = 15; // CHANGE TO ADD MAPS
 
 class Instruction {
 	constructor(_movement, _color) {
@@ -182,8 +182,8 @@ export function App() {
       if (level < NB_LEVEL) {
           setLevel(level + 1);
       } else if (level == NB_LEVEL) {
-	  setPopUpText("You win the game!");
-	  setPopUpButton("Retry last level");
+        setPopUpText("You win the game!");
+        setPopUpButton("Retry last level");
       }
     } else if (returnCode == 1) {
       setPopUpText("Function over, you loose !");
@@ -212,7 +212,7 @@ export function App() {
           <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
             <Level level={level} ></Level>
             <Canva data={data}></Canva>
-            <Composition instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
+            <Composition play={play} instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
             <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop} setDeltaTime={setDeltaTime} deltaTime={deltaTime}></Controls>
             <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
             
