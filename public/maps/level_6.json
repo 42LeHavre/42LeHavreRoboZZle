@@ -1,0 +1,25 @@
+{
+	"map": [
+		"                    ",
+		"                    ",
+		"                    ",
+		"                    ",
+		"    gggggggggg      ",
+		"    BbBbBbBbbb      ",
+		"    bBbBbBbBbb      ",
+		"    bbBbBbBbBb      ",
+		"    bbbBbBbBbB      ",
+		"    rrrrrrrrrr      ",
+		"                    ",
+		"                    ",
+		"                    ",
+		"                    ",
+		"                    "
+		],
+	"starting_pos": {
+		"x": 4,
+		"y": 7,
+		"dir": "up"
+	},
+	"functions": [4]
+}
