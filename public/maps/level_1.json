@@ -1,13 +1,21 @@
 {
 	"map": [
-		"r             r",
-  		"     bbbbb     ",
-  		"    bbbbbbb    ",
-  		"    bBbbbBb    ",
-		"    bbbbbbb    ",
-		"     bbbbb     ",
-		"r             r"
-],
+		"r                  r",
+		"                    ",
+		"                    ",
+		"                    ",
+		"                    ",
+		"       bbbbbb       ",
+		"     bbbbbbbbbb     ",
+		"     bBbbbbbbBb     ",
+		"     bbbbbbbbbb     ",
+		"       bbbbbb       ",
+		"                    ",
+		"                    ",
+		"                    ",
+		"                    ",
+		"r                  r"
+		],
 	"starting_pos": {
 		"x": 7,
 		"y": 3,
