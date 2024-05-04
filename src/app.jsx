@@ -7,6 +7,7 @@ import { Toolbar } from './components/Toolbar'
 import { useEffect } from 'preact/hooks'
 import { PopUp } from './components/PopUp'
 import Router from 'preact-router';
+import { CookiesProvider, useCookies } from 'react-cookie'
 
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
@@ -42,6 +43,7 @@ export function App() {
 
   const [stop, setStop] = useState(false);
   const [level, setLevel] = useState(1);
+  const [cookie, setCookie] = useCookies(['level']); 
   const [returnCode, setReturnCode] = useState(-1);
 
   const [selected, setSelected] = useState("");
@@ -165,9 +167,15 @@ export function App() {
     return playRef.current ?  !(data.nbCollectible == 0) : -2;
   }
 
+  useEffect(() => {
+	if (cookie.level)
+	  setLevel(cookie.level);
+  }, []);
+
   useEffect(async () => {
     await createInstance(`level_${level}`);
 	setSelected("");
+	setCookie("level", level);
   }, [level]);
 
   useEffect(async () => {
@@ -206,12 +214,12 @@ export function App() {
   }, [deltaTime]);
 
   return (
-    <>
+    <CookiesProvider>
       <Router>
         <div path="/42LeHavreRoboZZle/">
           <PopUp active={popUp} setActive={setPopUp} button={popUpButton} actionButton={resetData} game={instance}>{popUpText}</PopUp>
           <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
-            <Level level={level} ></Level>
+            <Level level={level} setLevel={setLevel}></Level>
             <Canva data={data}></Canva>
             <Composition play={play} instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
             <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop} setDeltaTime={setDeltaTime} deltaTime={deltaTime}></Controls>
@@ -227,6 +235,6 @@ export function App() {
           <h1>404 : Not found</h1>
         </div>
       </Router>
-    </>
+    </CookiesProvider>
   )
 }
