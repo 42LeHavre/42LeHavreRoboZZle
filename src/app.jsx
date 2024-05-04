@@ -167,6 +167,7 @@ export function App() {
 
   useEffect(async () => {
     await createInstance(`level_${level}`);
+	setSelected("");
   }, [level]);
 
   useEffect(async () => {
