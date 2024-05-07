@@ -7,7 +7,6 @@ import { Toolbar } from './components/Toolbar'
 import { useEffect } from 'preact/hooks'
 import { PopUp } from './components/PopUp'
 import Router from 'preact-router';
-import { CookiesProvider, useCookies } from 'react-cookie'
 
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 
@@ -43,7 +42,6 @@ export function App() {
 
   const [stop, setStop] = useState(false);
   const [level, setLevel] = useState(1);
-  const [cookie, setCookie] = useCookies(['level']); 
   const [returnCode, setReturnCode] = useState(-1);
 
   const [selected, setSelected] = useState("");
@@ -168,14 +166,14 @@ export function App() {
   }
 
   useEffect(() => {
-	if (cookie.level)
-	  setLevel(cookie.level);
+	if (localStorage.getItem("level"))
+	  setLevel(Number(localStorage.getItem("level")));
   }, []);
 
   useEffect(async () => {
     await createInstance(`level_${level}`);
-	setSelected("");
-	setCookie("level", level);
+    setSelected("");
+    localStorage.setItem("level", level);
   }, [level]);
 
   useEffect(async () => {
@@ -214,7 +212,7 @@ export function App() {
   }, [deltaTime]);
 
   return (
-    <CookiesProvider>
+    <>
       <Router>
         <div path="/42LeHavreRoboZZle/">
           <PopUp active={popUp} setActive={setPopUp} button={popUpButton} actionButton={resetData} game={instance}>{popUpText}</PopUp>
@@ -235,6 +233,6 @@ export function App() {
           <h1>404 : Not found</h1>
         </div>
       </Router>
-    </CookiesProvider>
+    </>
   )
 }
