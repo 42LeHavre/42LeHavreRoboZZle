@@ -165,9 +165,15 @@ export function App() {
     return playRef.current ?  !(data.nbCollectible == 0) : -2;
   }
 
+  useEffect(() => {
+	if (localStorage.getItem("level"))
+	  setLevel(Number(localStorage.getItem("level")));
+  }, []);
+
   useEffect(async () => {
     await createInstance(`level_${level}`);
-	setSelected("");
+    setSelected("");
+    localStorage.setItem("level", level);
   }, [level]);
 
   useEffect(async () => {
@@ -211,7 +217,7 @@ export function App() {
         <div path="/42LeHavreRoboZZle/">
           <PopUp active={popUp} setActive={setPopUp} button={popUpButton} actionButton={resetData} game={instance}>{popUpText}</PopUp>
           <div className="bg-[#2d2d2d] w-screen flex flex-col justify-center items-center h-screen px-2 text-gray-800">
-            <Level level={level} ></Level>
+            <Level level={level} setLevel={setLevel}></Level>
             <Canva data={data}></Canva>
             <Composition play={play} instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
             <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop} setDeltaTime={setDeltaTime} deltaTime={deltaTime}></Controls>
