@@ -1,7 +1,6 @@
 {
 	"map": [
 		"                    ",
-		"                    ",
 		"  R   R             ",
 		"  B   B       R     ",
 		"  B   B       B     ",
@@ -18,7 +17,7 @@
 		],
 	"starting_pos": {
 		"x": 2,
-		"y": 13,
+		"y": 12,
 		"dir": "right"
 	},
 	"functions": [5, 5]
