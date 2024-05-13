@@ -1,20 +1,15 @@
 {
 	"map": [
-		"                    ",
-		"                    ",
-		"                    ",
-		"                    ",
-		"    gggggggggg      ",
-		"    BbBbBbBbbb      ",
-		"    bBbBbBbBbb      ",
-		"    bbBbBbBbBb      ",
-		"    bbbBbBbBbB      ",
-		"    rrrrrrrrrr      ",
-		"                    ",
-		"                    ",
-		"                    ",
-		"                    ",
-		"                    "
+		"                  ",
+		"                  ",
+		"    gggggggggg    ",
+		"    BbBbBbBbbb    ",
+		"    bBbBbBbBbb    ",
+		"    bbBbBbBbBb    ",
+		"    bbbBbBbBbB    ",
+		"    rrrrrrrrrr    ",
+		"                  ",
+		"                  "
 		],
 	"starting_pos": {
 		"x": 4,

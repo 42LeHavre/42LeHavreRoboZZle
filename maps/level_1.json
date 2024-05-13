@@ -1,15 +1,15 @@
 {
 	"map": [
-		"r             r",
-  		"     bbbbb     ",
-  		"    bbbbbbb    ",
-  		"    bBbbbBb    ",
-		"    bbbbbbb    ",
-		"     bbbbb     ",
-		"r             r"
+		"r         r",
+  		"   bbbbb   ",
+  		"  bbbbbbb  ",
+  		"  bBbbbBb  ",
+		"  bbbbbbb  ",
+		"   bbbbb   ",
+		"r         r"
 ],
 	"starting_pos": {
-		"x": 7,
+		"x": 5,
 		"y": 3,
 		"dir": "right"
 	},
