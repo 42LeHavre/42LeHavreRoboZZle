@@ -12,25 +12,25 @@
 }
 
 .player-0 {
-  background: url('/assets/duck_est.svg') center/cover;
+  background: url('/assets/piscine/player_est.png') center/cover;
 }
 
 .player-90 {
-  background: url('/assets/duck_north.svg');
+  background: url('/assets/piscine/player_north.png') center/cover no-repeat;
 }
 
 .player-180 {
-  background: url('/assets/duck_west.svg');
+  background: url('/assets/piscine/player_west.png') center/cover no-repeat;
 }
 
 .player-270 {
-  background: url('/assets/duck_south.svg');
+  background: url('/assets/piscine/player_south.png') center/cover no-repeat;
 }
 
 .collectible {
-  background: url('/assets/rubber_ring.svg');
+  background: url('/assets/piscine/collectible.png') center/cover no-repeat;
 }
 
 .tile {
-  background: url('/assets/water_32x32.gif');
+  background: url('/assets/piscine/tiles_32x32.gif') center/cover no-repeat;
 }
