@@ -21,7 +21,7 @@ export function Canva(props) {
     else if (char.toLowerCase() == 'g')
         return 'from-lime-500 to-lime-600';
     else
-        return 'dark:bg-[#3e3e3e] rounded';
+        return 'dark:bg-[#3e3e3e] tile';
   }
 
   function getAngle(angle) {
@@ -37,9 +37,9 @@ export function Canva(props) {
 
   function getIcon(char, x, y) {
     if (x == props.data.x && y == props.data.y)
-        return `fa-rocket text-white rotate-[${getAngle(props.data.dir) + 45}deg]`
+        return `player-${getAngle(props.data.dir)}`
     if (char == char.toUpperCase() && char != ' ')
-        return "fa-star text-yellow-500"
+        return "collectible"
   }
 
   return (
@@ -51,7 +51,7 @@ export function Canva(props) {
                     key={`${x}-${y}`}
                     className={`${getCellColor(cell)} aspect-w-1 aspect-h-1 bg-gradient-to-br flex justify-center items-center`}
                 >
-                    <i className={`${getIcon(cell, x, y)} fa-solid text-white`}></i>
+                    <i className={`${getIcon(cell, x, y)} fa-solid w-full h-full text-white`}></i>
                 </div>
             ))
         ))}

@@ -10,3 +10,27 @@
     font-family: Inter, system-ui, sans-serif;
   }
 }
+
+.player-0 {
+  background: url('/assets/duck_est.svg') center/cover;
+}
+
+.player-90 {
+  background: url('/assets/duck_north.svg');
+}
+
+.player-180 {
+  background: url('/assets/duck_west.svg');
+}
+
+.player-270 {
+  background: url('/assets/duck_south.svg');
+}
+
+.collectible {
+  background: url('/assets/rubber_ring.svg');
+}
+
+.tile {
+  background: url('/assets/water_32x32.gif');
+}

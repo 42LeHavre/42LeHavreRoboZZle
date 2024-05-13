@@ -222,11 +222,6 @@ export function App() {
             <Composition play={play} instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
             <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop} setDeltaTime={setDeltaTime} deltaTime={deltaTime}></Controls>
             <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
-            
-            <div className="rotate-[45deg]"></div>
-            <div className="rotate-[135deg]"></div>
-            <div className="rotate-[225deg]"></div>
-            <div className="rotate-[315deg]"></div>
           </div>
         </div>
         <div default className="w-screen h-screen flex justify-center items-center text-xl font-semibold text-white bg-[#2d2d2d]">
