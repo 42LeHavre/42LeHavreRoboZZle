@@ -11,7 +11,7 @@ import Router from 'preact-router';
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
 import { messages } from './messages'
 
-const NB_LEVEL = 3;
+const NB_LEVEL = 15;
 export const THEME = true;
 
 class Instruction {
