@@ -1,8 +1,7 @@
 import React from 'react';
 import '../index.css';
 import { useEffect, useState } from 'preact/hooks';
-
-const THEME = false;
+import { THEME } from '../app';
 
 export function Canva(props) {
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
@@ -53,7 +52,7 @@ export function Canva(props) {
                     key={`${x}-${y}`}
                     className={`${getCellColor(cell)} aspect-w-1 aspect-h-1 bg-gradient-to-br flex justify-center items-center`}
                 >
-                    <i className={`${getIcon(cell, x, y)} fa-solid flex items-center justify-center w-full h-full text-white`}></i>
+                    <i className={`${getIcon(cell, x, y)} fa-solid flex items-center justify-center w-4/5 h-4/5 text-white`}></i>
                 </div>
             ))
         ))}

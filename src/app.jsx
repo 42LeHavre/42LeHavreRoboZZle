@@ -9,8 +9,10 @@ import { PopUp } from './components/PopUp'
 import Router from 'preact-router';
 
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
+import { messages } from './messages'
 
-const NB_LEVEL = 15; // CHANGE TO ADD MAPS
+const NB_LEVEL = 3;
+export const THEME = true;
 
 class Instruction {
 	constructor(_movement, _color) {
@@ -184,20 +186,29 @@ export function App() {
     setCurrentInst({x: -1, y: -1});
 
     if (returnCode == 0) {
-      setPopUpText("You win !");
-      setPopUpButton("Next level");
+      setPopUpButton(messages.win_level.button[THEME ? "theme" : "fr"]);
+
+      if (THEME) {
+        if (level == 1)
+          setPopUpText("Bravo, niveau 1/3 réussi ! Tu peux passer au grand bain !");
+        if (level == 2)
+          setPopUpText("Bravo, niveau 2/3 réussi ! Bientôt champion !");
+      } else
+        setPopUpText(messages.win_level.label.fr);
+
       if (level < NB_LEVEL) {
           setLevel(level + 1);
       } else if (level == NB_LEVEL) {
-        setPopUpText("You win the game!");
-        setPopUpButton("Retry last level");
+        setPopUpText(messages.win_game.label[THEME ? "theme" : "fr"]);
+        setPopUpButton(messages.win_game.button[THEME ? "theme" : "fr"]);
       }
+
     } else if (returnCode == 1) {
-      setPopUpText("Function over, you loose !");
-      setPopUpButton("Retry");
+      setPopUpText(messages.function_over.label[THEME ? "theme" : "fr"]);
+      setPopUpButton(messages.function_over.button[THEME ? "theme" : "fr"]);
     } else if (returnCode == 2) {
-      setPopUpText("Out of map, you loose !");
-      setPopUpButton("Retry");
+      setPopUpText(messages.out_of_map.label[THEME ? "theme" : "fr"]);
+      setPopUpButton(messages.out_of_map.button[THEME ? "theme" : "fr"]);
     }
   }, [returnCode]);
 
