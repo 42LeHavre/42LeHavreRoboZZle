@@ -156,6 +156,8 @@ export function App() {
         } else
           await sleep(refTime.current);
       }
+      else
+        await sleep(refTime.current);
       if (collisionDetect(data) == 1)
         return 2;
 
