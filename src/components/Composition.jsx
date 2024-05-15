@@ -3,7 +3,6 @@ import React from 'react';
 import { Tile } from './Tile';
 
 export function Composition(props) {
-
   return (
     <div className="flex-1 w-full flex flex-col items-start overflow-y-auto overflow-x-auto min-h-300 max-w-[500px]">
       <div className="flex flex-col items-start">

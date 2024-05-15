@@ -2,6 +2,8 @@ import React from 'react';
 import '../index.css';
 import { useEffect, useState } from 'preact/hooks';
 
+const THEME = true;
+
 export function Canva(props) {
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
@@ -21,7 +23,7 @@ export function Canva(props) {
     else if (char.toLowerCase() == 'g')
         return 'from-lime-500 to-lime-600';
     else
-        return 'dark:bg-[#3e3e3e] tile';
+        return THEME ? "dark:bg-[#3e3e3e] rounded" :  "tile";
   }
 
   function getAngle(angle) {
@@ -37,9 +39,9 @@ export function Canva(props) {
 
   function getIcon(char, x, y) {
     if (x == props.data.x && y == props.data.y)
-        return `player-${getAngle(props.data.dir)}`
+        return THEME ? `fa-rocket rotate-[${getAngle(props.data.dir) + 45}deg]` : `player-${getAngle(props.data.dir)}`
     if (char == char.toUpperCase() && char != ' ')
-        return "collectible"
+        return THEME ? "fa-star text-yellow-500" : "collectible"
   }
 
   return (
@@ -51,7 +53,7 @@ export function Canva(props) {
                     key={`${x}-${y}`}
                     className={`${getCellColor(cell)} aspect-w-1 aspect-h-1 bg-gradient-to-br flex justify-center items-center`}
                 >
-                    <i className={`${getIcon(cell, x, y)} fa-solid w-full h-full text-white`}></i>
+                    <i className={`${getIcon(cell, x, y)} fa-solid flex items-center justify-center text-xl w-4/5 h-4/5 text-white`}></i>
                 </div>
             ))
         ))}
