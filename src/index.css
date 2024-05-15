@@ -16,7 +16,7 @@
 }
 
 .player-90 {
-  background: url('/assets/piscine/player_north.png') center/cover no-repeat;
+  background: url('/assets/piscine/player_south.png') center/cover no-repeat;
 }
 
 .player-180 {
@@ -24,7 +24,7 @@
 }
 
 .player-270 {
-  background: url('/assets/piscine/player_south.png') center/cover no-repeat;
+  background: url('/assets/piscine/player_north.png') center/cover no-repeat;
 }
 
 .collectible {
