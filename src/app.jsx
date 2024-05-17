@@ -12,7 +12,7 @@ import { sleep, getData, countCollectible, verifColor, collectCollectible, chang
 import { messages } from './messages'
 
 const NB_LEVEL = 15;
-export const THEME = true;
+export const THEME = false;
 
 class Instruction {
 	constructor(_movement, _color) {
@@ -55,7 +55,7 @@ export function App() {
   const [popUpButton, setPopUpButton] = useState("Go");
 
   const [currentInst, setCurrentInst] = useState({x: -1, y: -1});
-  const [deltaTime, setDeltaTime] = useState(1000);
+  const [deltaTime, setDeltaTime] = useState(420);
   const refTime = useRef(deltaTime);
 
   async function resetData(gameInstance){
