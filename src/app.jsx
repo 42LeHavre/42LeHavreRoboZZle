@@ -188,7 +188,7 @@ export function App() {
     setCurrentInst({x: -1, y: -1});
 
     if (returnCode == 0) {
-      setPopUpButton(messages.win_level.button[THEME ? "theme" : "fr"]);
+      setPopUpButton(messages.win_level.button[THEME ? "theme" : "en"]);
 
       if (THEME) {
         if (level == 1)
@@ -196,21 +196,21 @@ export function App() {
         if (level == 2)
           setPopUpText("Bravo, niveau 2/3 réussi ! Bientôt champion !");
       } else
-        setPopUpText(messages.win_level.label.fr);
+        setPopUpText(messages.win_level.label.en);
 
       if (level < NB_LEVEL) {
           setLevel(level + 1);
       } else if (level == NB_LEVEL) {
-        setPopUpText(messages.win_game.label[THEME ? "theme" : "fr"]);
-        setPopUpButton(messages.win_game.button[THEME ? "theme" : "fr"]);
+        setPopUpText(messages.win_game.label[THEME ? "theme" : "en"]);
+        setPopUpButton(messages.win_game.button[THEME ? "theme" : "en"]);
       }
 
     } else if (returnCode == 1) {
-      setPopUpText(messages.function_over.label[THEME ? "theme" : "fr"]);
-      setPopUpButton(messages.function_over.button[THEME ? "theme" : "fr"]);
+      setPopUpText(messages.function_over.label[THEME ? "theme" : "en"]);
+      setPopUpButton(messages.function_over.button[THEME ? "theme" : "en"]);
     } else if (returnCode == 2) {
-      setPopUpText(messages.out_of_map.label[THEME ? "theme" : "fr"]);
-      setPopUpButton(messages.out_of_map.button[THEME ? "theme" : "fr"]);
+      setPopUpText(messages.out_of_map.label[THEME ? "theme" : "en"]);
+      setPopUpButton(messages.out_of_map.button[THEME ? "theme" : "en"]);
     }
   }, [returnCode]);
 
