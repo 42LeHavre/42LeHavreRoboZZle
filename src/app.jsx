@@ -9,8 +9,10 @@ import { PopUp } from './components/PopUp'
 import Router from 'preact-router';
 
 import { sleep, getData, countCollectible, verifColor, collectCollectible, changeDir, collisionDetect, move} from './game'
+import { messages } from './messages'
 
-const NB_LEVEL = 15; // CHANGE TO ADD MAPS
+const NB_LEVEL = 15;
+export const THEME = false;
 
 class Instruction {
 	constructor(_movement, _color) {
@@ -53,7 +55,7 @@ export function App() {
   const [popUpButton, setPopUpButton] = useState("Go");
 
   const [currentInst, setCurrentInst] = useState({x: -1, y: -1});
-  const [deltaTime, setDeltaTime] = useState(1000);
+  const [deltaTime, setDeltaTime] = useState(420);
   const refTime = useRef(deltaTime);
 
   async function resetData(gameInstance){
@@ -154,6 +156,8 @@ export function App() {
         } else
           await sleep(refTime.current);
       }
+      else
+        await sleep(refTime.current);
       if (collisionDetect(data) == 1)
         return 2;
 
@@ -184,20 +188,29 @@ export function App() {
     setCurrentInst({x: -1, y: -1});
 
     if (returnCode == 0) {
-      setPopUpText("You win !");
-      setPopUpButton("Next level");
+      setPopUpButton(messages.win_level.button[THEME ? "theme" : "en"]);
+
+      if (THEME) {
+        if (level == 1)
+          setPopUpText("Bravo, niveau 1/3 réussi ! Tu peux passer au grand bain !");
+        if (level == 2)
+          setPopUpText("Bravo, niveau 2/3 réussi ! Bientôt champion !");
+      } else
+        setPopUpText(messages.win_level.label.en);
+
       if (level < NB_LEVEL) {
           setLevel(level + 1);
       } else if (level == NB_LEVEL) {
-        setPopUpText("You win the game!");
-        setPopUpButton("Retry last level");
+        setPopUpText(messages.win_game.label[THEME ? "theme" : "en"]);
+        setPopUpButton(messages.win_game.button[THEME ? "theme" : "en"]);
       }
+
     } else if (returnCode == 1) {
-      setPopUpText("Function over, you loose !");
-      setPopUpButton("Retry");
+      setPopUpText(messages.function_over.label[THEME ? "theme" : "en"]);
+      setPopUpButton(messages.function_over.button[THEME ? "theme" : "en"]);
     } else if (returnCode == 2) {
-      setPopUpText("Out of map, you loose !");
-      setPopUpButton("Retry");
+      setPopUpText(messages.out_of_map.label[THEME ? "theme" : "en"]);
+      setPopUpButton(messages.out_of_map.button[THEME ? "theme" : "en"]);
     }
   }, [returnCode]);
 
@@ -222,11 +235,10 @@ export function App() {
             <Composition play={play} instance={instance} setInstance={setInstance} selected={selected} level={level} currentInst={currentInst}></Composition>
             <Controls game={instance} play={play} setPlay={setPlay} data={data} setStop={setStop} stop={stop} setDeltaTime={setDeltaTime} deltaTime={deltaTime}></Controls>
             <Toolbar functions={instance.instructions} selected={selected} setSelected={setSelected}></Toolbar>
-            
-            <div className="rotate-[45deg]"></div>
-            <div className="rotate-[135deg]"></div>
-            <div className="rotate-[225deg]"></div>
-            <div className="rotate-[315deg]"></div>
+            <div className='rotate-[45deg]'/>
+            <div className='rotate-[135deg]'/>
+            <div className='rotate-[225deg]'/>
+            <div className='rotate-[315deg]'/>
           </div>
         </div>
         <div default className="w-screen h-screen flex justify-center items-center text-xl font-semibold text-white bg-[#2d2d2d]">

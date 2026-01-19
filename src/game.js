@@ -1,6 +1,3 @@
-let stopValue = false;
-let data;
-
 /*
 	la classe Data est destinée à être globale pour ce fichier-là mais aussi pour l'affichage à la map.
 	un tableau nomme map représentant la map (ligne en x et colonne en y);
@@ -14,31 +11,6 @@ let data;
 
 	et un entier nomme _nbCollectible représentant le nombre de collectibles restant
 */
-
-class Data {
-	constructor(_map, _x, _y, _dir, _nbCollectible) {
-		this.map = _map;
-		this.x = _x;
-		this.y = _y;
-		this.dir = _dir;
-		this.nbCollectible = _nbCollectible;
-	}
-}
-
-class Instruction {
-	constructor(_movement, _color) {
-		this.movement = _movement;
-		this.color = _color;
-	}
-}
-
-class Game {
-	constructor(_level, _instructions) {
-		this.level = _level;
-		this.instructions = _instructions;
-	}
-}
-
 
 export function move(data) {
 	let newData = data;
